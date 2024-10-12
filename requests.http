@@ -1,0 +1,130 @@
+# Get all characters.
+
+GET http://localhost:9080/simple-rpg/api/posts
+
+###
+
+# Get single character.
+
+GET http://localhost:9080/simple-rpg/api/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
+
+###
+
+# Get single character. Not existing, created later.
+
+GET http://localhost:9080/simple-rpg/api/posts/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# Get single character portrait.
+
+GET http://localhost:9080/simple-rpg/api/characters/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0/portrait
+
+###
+
+# Get single character portrait. Not existing, created later.
+
+GET http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
+
+###
+
+# Create new character.
+
+PUT http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sigrid",
+  "background": "No one special.",
+  "age": 18,
+  "strength": 12,
+  "constitution": 12,
+  "charisma": 12,
+  "health": 24,
+  "profession": "f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"
+}
+
+###
+
+# Create character portrait.
+
+PUT http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87/portrait
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="portrait"; filename="sigrid.png'
+
+< simple-rpg/src/main/resources/pl/edu/pg/eti/kask/rpg/configuration/avatar/sigrid.png
+--boundary--
+
+###
+
+# Create new character. Not existing profession.
+
+PUT http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sigrid",
+  "background": "No one special.",
+  "age": 18,
+  "strength": 12,
+  "constitution": 12,
+  "charisma": 12,
+  "profession": "3bb5b0d5-7e22-466f-8c3f-be4baa3d3b8c"
+}
+
+###
+
+# Update character.
+
+PATCH http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+Content-Type: application/json
+
+{
+  "name": "Sir Sigrid",
+  "background": "Someone well known.",
+  "age": 30
+}
+
+###
+
+# Delete character.
+
+DELETE http://localhost:9080/simple-rpg/api/characters/3c6f1eb1-8069-44ab-988f-d7fed2b65d87
+
+###
+
+# Get all professions.
+
+GET http://localhost:9080/simple-rpg/api/professions
+
+###
+
+# Get all profession characters.
+
+GET http://localhost:9080/simple-rpg/api/professions/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/characters
+
+###
+
+# Get all profession characters. Not existing.
+
+GET http://localhost:9080/simple-rpg/api/professions/d8b50a43-ed45-4441-9bcb-5db7782b47f6/characters
+
+###
+
+# Get all user characters.
+
+GET http://localhost:9080/simple-rpg/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e/characters
+
+###
+
+# Get all user characters. Empty.
+
+GET http://localhost:9080/simple-rpg/api/users/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6/characters
+
+###
+
+# Get all user characters. Not existing.
+
+GET http://localhost:9080/simple-rpg/api/users/c07cab55-a56f-4d67-b351-175bb7a94b7a/characters

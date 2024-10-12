@@ -1,5 +1,5 @@
 package org.example.user.entity;
 
-enum UserRoles {
+public enum UserRoles {
     ADMIN,USER
 }

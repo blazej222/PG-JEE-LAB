@@ -6,15 +6,15 @@
          metadata-complete="false">
 
     <listener>
-        <listener-class>pl.edu.pg.eti.kask.rpg.configuration.listener.CreateDataSource</listener-class>
+        <listener-class>org.example.configuration.listener.CreateDataSource</listener-class>
     </listener>
 
     <listener>
-        <listener-class>pl.edu.pg.eti.kask.rpg.configuration.listener.CreateServices</listener-class>
+        <listener-class>org.example.configuration.listener.CreateServices</listener-class>
     </listener>
 
     <listener>
-        <listener-class>pl.edu.pg.eti.kask.rpg.configuration.listener.CreateControllers</listener-class>
+        <listener-class>org.example.configuration.listener.CreateControllers</listener-class>
     </listener>
 
 </web-app>
