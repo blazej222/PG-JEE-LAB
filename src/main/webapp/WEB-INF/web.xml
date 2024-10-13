@@ -17,4 +17,12 @@
         <listener-class>org.example.configuration.listener.CreateControllers</listener-class>
     </listener>
 
+    <context-param>
+        <description>Uploaded avatars</description>
+        <param-name>avatars</param-name>
+        <param-value>
+            F:\Politechnika\Sem7\JEE\JEE-Lab\avatars
+        </param-value>
+    </context-param>
+
 </web-app>

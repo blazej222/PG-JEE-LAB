@@ -6,6 +6,7 @@ import org.example.post.dto.*;
 import org.example.user.dto.function.RequestToUserFunction;
 import org.example.user.dto.function.UpdateUserWithRequestFunction;
 import org.example.user.dto.function.UserToResponseFunction;
+import org.example.user.dto.function.UsersToResponseFunction;
 import org.example.user.entity.User;
 import org.example.user.dto.*;
 
@@ -89,6 +90,10 @@ public class DtoFunctionFactory {
      */
     public UserToResponseFunction userToResponse() {
         return new UserToResponseFunction();
+    }
+
+    public UsersToResponseFunction usersToResponse() {
+        return new UsersToResponseFunction();
     }
 
 }
