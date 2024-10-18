@@ -276,26 +276,26 @@ public class ApiServlet extends HttpServlet {
                 postController.patchPost(uuid, jsonb.fromJson(request.getReader(), PatchPostRequest.class));
                 return;
             }
-        }
-        else if (path.matches(Patterns.USER.pattern())) {
-            UUID uuid = extractUuid(Patterns.USER, path);
-            try {
-                userController.patchUser(uuid, jsonb.fromJson(request.getReader(), PatchUserRequest.class));
-                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            } catch (NotFoundException ex) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            else if (path.matches(Patterns.USER.pattern())) {
+                UUID uuid = extractUuid(Patterns.USER, path);
+                try {
+                    userController.patchUser(uuid, jsonb.fromJson(request.getReader(), PatchUserRequest.class));
+                    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                } catch (NotFoundException ex) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                }
+                return;
+            } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
+                response.setContentType("image/png");
+                UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
+                try {
+                    userController.patchUserAvatar(uuid, request.getPart("avatar").getInputStream(), avatarPath);
+                    response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                } catch (NotFoundException ex) {
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND, ex.getMessage());
+                }
+                return;
             }
-            return;
-        } else if (path.matches(Patterns.USER_AVATAR.pattern())) {
-            response.setContentType("image/png");
-            UUID uuid = extractUuid(Patterns.USER_AVATAR, path);
-            try {
-                userController.patchUserAvatar(uuid, request.getPart("avatar").getInputStream(), avatarPath);
-                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
-            } catch (NotFoundException ex) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, ex.getMessage());
-            }
-            return;
         }
         response.sendError(HttpServletResponse.SC_BAD_REQUEST);
     }
