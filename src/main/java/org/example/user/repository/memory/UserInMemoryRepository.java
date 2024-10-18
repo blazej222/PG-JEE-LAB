@@ -1,5 +1,7 @@
 package org.example.user.repository.memory;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import org.example.datastore.component.DataStore;
 import org.example.user.entity.User;
 import org.example.user.repository.api.UserRepository;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequestScoped
 public class UserInMemoryRepository implements UserRepository {
     /**
      * Underlying data store. In future should be replaced with database connection.
@@ -17,6 +20,7 @@ public class UserInMemoryRepository implements UserRepository {
     /**
      * @param store data store
      */
+    @Inject
     public UserInMemoryRepository(DataStore store) {
         this.store = store;
     }

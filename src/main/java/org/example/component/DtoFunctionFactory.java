@@ -1,5 +1,6 @@
 package org.example.component;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.example.post.dto.function.*;
 import org.example.post.entity.*;
 import org.example.post.dto.*;
@@ -10,6 +11,7 @@ import org.example.user.dto.function.UsersToResponseFunction;
 import org.example.user.entity.User;
 import org.example.user.dto.*;
 
+@ApplicationScoped
 public class DtoFunctionFactory {
     /**
      * Returns a function to convert a single {@link Post} to {@link GetPostResponse}.

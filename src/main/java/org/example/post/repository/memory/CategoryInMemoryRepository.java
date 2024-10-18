@@ -1,5 +1,7 @@
 package org.example.post.repository.memory;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
 import org.example.datastore.component.DataStore;
 import org.example.post.entity.Category;
 import org.example.post.repository.api.CategoryRepository;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@RequestScoped
 public class CategoryInMemoryRepository implements CategoryRepository {
     /**
      * Underlying data store. In future should be replaced with database connection.
@@ -17,6 +20,7 @@ public class CategoryInMemoryRepository implements CategoryRepository {
     /**
      * @param store data store
      */
+    @Inject
     public CategoryInMemoryRepository(DataStore store) {
         this.store = store;
     }

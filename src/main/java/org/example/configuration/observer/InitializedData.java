@@ -1,5 +1,10 @@
-package org.example.configuration.listener;
+package org.example.configuration.observer;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Initialized;
+import jakarta.enterprise.context.control.RequestContextController;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
@@ -14,7 +19,6 @@ import org.example.user.services.UserService;
 
 import java.io.InputStream;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -23,29 +27,40 @@ import java.util.UUID;
  * cases of empty database. When using persistence storage application instance should be initialized only during first
  * run in order to init database with starting data. Good place to create first default admin user.
  */
-@WebListener//using annotation does not allow configuring order
+@ApplicationScoped
 public class InitializedData implements ServletContextListener {
 
     /**
      * Post service.
      */
-    private PostService postService;
+    private final PostService postService;
 
     /**
      * User service.
      */
-    private UserService userService;
+    private final UserService userService;
 
     /**
      * Category service.
      */
-    private CategoryService categoryservice;
+    private final CategoryService categoryservice;
 
-    @Override
-    public void contextInitialized(ServletContextEvent event) {
-        postService = (PostService) event.getServletContext().getAttribute("postService");
-        userService = (UserService) event.getServletContext().getAttribute("userService");
-        categoryservice = (CategoryService) event.getServletContext().getAttribute("categoryService");
+    private final RequestContextController requestContextController;
+
+    @Inject
+    public InitializedData(
+            PostService postService,
+            UserService userService,
+            CategoryService categoryservice,
+            RequestContextController requestContextController
+    ){
+        this.postService = postService;
+        this.userService = userService;
+        this.categoryservice = categoryservice;
+        this.requestContextController = requestContextController;
+    }
+
+    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
         init();
     }
 
@@ -55,6 +70,7 @@ public class InitializedData implements ServletContextListener {
      */
     @SneakyThrows
     private void init() {
+        requestContextController.activate();
         User admin = User.builder()
                 .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
                 .name("admin")
@@ -79,6 +95,9 @@ public class InitializedData implements ServletContextListener {
         userService.create(admin);
         userService.create(kevin);
         userService.create(alice);
+
+//        System.out.println("Executing initialization");
+//        System.out.println(userService.find("81e1c2a9-7f57-439b-b53d-6db88b071e4e").get().getName());
 
         Category bard = Category.builder()
                 .id(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"))
@@ -141,6 +160,7 @@ public class InitializedData implements ServletContextListener {
         postService.create(uhlbrecht);
         postService.create(eloise);
         postService.create(zereni);
+        requestContextController.deactivate();
     }
 
     /**

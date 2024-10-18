@@ -1,5 +1,8 @@
 package org.example.post.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.post.entity.Post;
 import org.example.post.repository.api.CategoryRepository;
 import org.example.post.repository.api.PostRepository;
@@ -14,6 +17,8 @@ import java.util.UUID;
 /**
  * Service layer for all business actions regarding post entity.
  */
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class PostService {
 
     /**
@@ -36,6 +41,7 @@ public class PostService {
      * @param categoryRepository repository for category entity
      * @param userRepository repository for user entity
      */
+    @Inject
     public PostService(PostRepository postRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
         this.postRepository = postRepository;
         this.categoryRepository = categoryRepository;

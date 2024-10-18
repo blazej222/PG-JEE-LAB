@@ -1,5 +1,8 @@
 package org.example.user.controller.simple;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.component.DtoFunctionFactory;
 import org.example.user.controller.api.UserController;
 import org.example.user.dto.GetUserResponse;
@@ -16,12 +19,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
+@NoArgsConstructor(force = true)
+@ApplicationScoped
 public class UserSimpleController implements UserController {
 
     private final UserService userService;
 
     private final DtoFunctionFactory factory;
 
+    @Inject
     public UserSimpleController(DtoFunctionFactory factory, UserService userService) {
         this.factory = factory;
         this.userService = userService;

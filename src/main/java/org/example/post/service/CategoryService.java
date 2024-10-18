@@ -1,5 +1,8 @@
 package org.example.post.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.post.entity.Category;
 import org.example.post.repository.api.CategoryRepository;
 
@@ -7,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class CategoryService {
         /**
          * Repository for category entity.
@@ -16,6 +21,7 @@ public class CategoryService {
         /**
          * @param repository repository for category entity
          */
+        @Inject
         public CategoryService(CategoryRepository repository) {
             this.repository = repository;
         }

@@ -1,5 +1,6 @@
 package org.example.controller.servlet;
 
+import jakarta.inject.Inject;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
@@ -34,14 +35,14 @@ public class ApiServlet extends HttpServlet {
     /**
      * Controller for managing collections posts' representations.
      */
-    private PostController postController;
+    private final PostController postController;
 
     /**
      * Controller for managing collections categories' representations.
      */
-    private CategoryController categoryController;
+    private final CategoryController categoryController;
 
-    private UserController userController;
+    private final UserController userController;
 
     private String avatarPath;
 
@@ -107,6 +108,14 @@ public class ApiServlet extends HttpServlet {
      */
     private final Jsonb jsonb = JsonbBuilder.create();
 
+    @Inject
+    public ApiServlet(PostController postController, CategoryController categoryController, UserController userController) {
+        this.postController = postController;
+        this.categoryController = categoryController;
+        this.userController = userController;
+        this.avatarPath = "F:\\Politechnika\\Sem7\\JEE\\JEE-Lab\\avatars";
+    }
+
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getMethod().equals("PATCH")) {
@@ -114,15 +123,6 @@ public class ApiServlet extends HttpServlet {
         } else {
             super.service(request, response);
         }
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        postController = (PostController) getServletContext().getAttribute("postController");
-        categoryController = (CategoryController) getServletContext().getAttribute("categoryController");
-        userController = (UserController) getServletContext().getAttribute("userController");
-        avatarPath = getServletContext().getInitParameter("avatars");
     }
 
     @SuppressWarnings("RedundantThrows")

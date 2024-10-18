@@ -1,5 +1,8 @@
 package org.example.post.controller.simple;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import lombok.NoArgsConstructor;
 import org.example.component.DtoFunctionFactory;
 import org.example.post.controller.api.PostController;
 import org.example.post.dto.GetPostResponse;
@@ -12,6 +15,8 @@ import org.example.controller.servlet.exception.*;
 import java.io.InputStream;
 import java.util.UUID;
 
+@ApplicationScoped
+@NoArgsConstructor(force = true)
 public class PostSimpleController implements PostController {
 
     /**
@@ -28,6 +33,7 @@ public class PostSimpleController implements PostController {
      * @param service post service
      * @param factory factory producing functions for conversion between DTO and entities
      */
+    @Inject
     public PostSimpleController(PostService service, DtoFunctionFactory factory) {
         this.service = service;
         this.factory = factory;

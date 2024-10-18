@@ -4,25 +4,4 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0"
          metadata-complete="false">
-
-    <listener>
-        <listener-class>org.example.configuration.listener.CreateDataSource</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>org.example.configuration.listener.CreateServices</listener-class>
-    </listener>
-
-    <listener>
-        <listener-class>org.example.configuration.listener.CreateControllers</listener-class>
-    </listener>
-
-    <context-param>
-        <description>Uploaded avatars</description>
-        <param-name>avatars</param-name>
-        <param-value>
-            F:\Politechnika\Sem7\JEE\JEE-Lab\avatars
-        </param-value>
-    </context-param>
-
 </web-app>
