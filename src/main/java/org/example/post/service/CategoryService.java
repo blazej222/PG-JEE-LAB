@@ -64,5 +64,14 @@ public class CategoryService {
             repository.delete(tmp);
         }
 
+        public void update(Category category) {
+            List<Post> posts = postRepository.findAllByCategory(repository.find(category.getId()).orElseThrow(NotFoundException::new));
+            repository.update(category);
+            for (Post post : posts) {
+                post.setCategory(category);
+                postRepository.update(post); //update references
+            }
+        }
+
 }
 

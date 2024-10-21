@@ -51,7 +51,8 @@ public class CategoryInMemoryRepository implements CategoryRepository {
 
     @Override
     public void update(Category entity) {
-        throw new UnsupportedOperationException("Operation not implemented.");
+        store.updateCategory(entity);
+        //throw new UnsupportedOperationException("Operation not implemented.");
     }
 
 

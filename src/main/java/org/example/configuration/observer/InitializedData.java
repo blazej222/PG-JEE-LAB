@@ -161,6 +161,13 @@ public class InitializedData implements ServletContextListener {
         //userService.delete(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"));  //removing user will remove all their posts
 
         //categoryservice.delete(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"));
+
+        Category warrior1 = Category.builder()
+                .id(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd"))
+                .name("Category 33")
+                .build();
+
+        categoryservice.update(warrior1);
         requestContextController.deactivate();
     }
 

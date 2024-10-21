@@ -61,5 +61,9 @@ GET http://localhost:9080/simple-rpg/api/posts
 GET http://localhost:9080/simple-rpg/api/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
 
 ###
+#Get particular post again
+GET http://localhost:9080/simple-rpg/api/posts/f08ef7e3-7f2a-4378-b1fb-2922d730c70d
+
+###
 #Get all categories
 GET http://localhost:9080/simple-rpg/api/categories

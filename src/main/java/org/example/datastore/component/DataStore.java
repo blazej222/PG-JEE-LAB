@@ -187,6 +187,14 @@ public class DataStore {
         }
     }
 
+    public synchronized void updateCategory(Category value) throws IllegalArgumentException {
+        if (categories.removeIf(category -> category.getId().equals(value.getId()))) {
+            categories.add(cloningUtility.clone(value));
+        }else{
+            throw new IllegalArgumentException("The category with id \"%s\" does not exist".formatted(value.getId()));
+        }
+    }
+
     /**
      * Clones existing post and updates relationships for values in storage
      *
