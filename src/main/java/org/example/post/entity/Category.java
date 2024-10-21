@@ -25,5 +25,7 @@ public class Category implements Serializable {
     private UUID id;
     private String name;
     private int positionInHierarchy;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<Post> posts;
 }

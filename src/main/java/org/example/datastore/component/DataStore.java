@@ -103,6 +103,14 @@ public class DataStore {
         }
         Post entity = cloneWithRelationships(value);
         posts.add(entity);
+
+        //This ensures that post will be added to category list after creation
+
+        Category tmp = entity.getCategory();
+        List<Post> postCategoryList = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getId().equals(tmp.getId())).toList());
+        postCategoryList.add(entity);
+        tmp.setPosts(postCategoryList);
+        updateCategory(tmp);
     }
 
     /**
@@ -119,6 +127,13 @@ public class DataStore {
         } else {
             throw new IllegalArgumentException("The post with id \"%s\" does not exist".formatted(value.getId()));
         }
+        //This ensures that post will be added to category list after creation
+
+        Category tmp = entity.getCategory();
+        List<Post> postCategoryList = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getId().equals(tmp.getId())).toList());
+        postCategoryList.add(entity);
+        tmp.setPosts(postCategoryList);
+        updateCategory(tmp);
     }
 
     /**

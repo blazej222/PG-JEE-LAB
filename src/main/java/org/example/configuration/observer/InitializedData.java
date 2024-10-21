@@ -16,6 +16,7 @@ import org.example.user.entity.UserRoles;
 import org.example.user.services.UserService;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -167,7 +168,10 @@ public class InitializedData implements ServletContextListener {
                 .name("Category 33")
                 .build();
 
-        categoryservice.update(warrior1);
+        //categoryservice.update(warrior1);
+        Category tmp = categoryservice.find(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd")).orElseThrow(RuntimeException::new);
+        List<Post> tmpPosts = tmp.getPosts();
+        System.out.println(tmpPosts);
         requestContextController.deactivate();
     }
 
