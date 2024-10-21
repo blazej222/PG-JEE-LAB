@@ -45,7 +45,8 @@ public class CategoryInMemoryRepository implements CategoryRepository {
 
     @Override
     public void delete(Category entity) {
-        throw new UnsupportedOperationException("Operation not implemented.");
+        store.deleteCategory(entity);
+        //throw new UnsupportedOperationException("Operation not implemented.");
     }
 
     @Override

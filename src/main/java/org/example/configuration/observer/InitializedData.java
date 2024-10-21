@@ -5,9 +5,7 @@ import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.context.control.RequestContextController;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
-import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.annotation.WebListener;
 import lombok.SneakyThrows;
 import org.example.post.entity.Category;
 import org.example.post.entity.Post;
@@ -17,7 +15,6 @@ import org.example.user.entity.User;
 import org.example.user.entity.UserRoles;
 import org.example.user.services.UserService;
 
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -161,24 +158,10 @@ public class InitializedData implements ServletContextListener {
         postService.create(eloise);
         postService.create(zereni);
 
-        userService.delete(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"));  //removing user will remove
-                                                                                            //all their posts
-        requestContextController.deactivate();
-    }
+        //userService.delete(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"));  //removing user will remove all their posts
 
-    /**
-     * @param name name of the desired resource
-     * @return array of bytes read from the resource
-     */
-    @SneakyThrows
-    private byte[] getResourceAsByteArray(String name) {
-        try (InputStream is = this.getClass().getResourceAsStream(name)) {
-            if (is != null) {
-                return is.readAllBytes();
-            } else {
-                throw new IllegalStateException("Unable to get resource %s".formatted(name));
-            }
-        }
+        //categoryservice.delete(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"));
+        requestContextController.deactivate();
     }
 
 }
