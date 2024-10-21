@@ -53,3 +53,13 @@ Content-Disposition: form-data; name="avatar"; filename="aerin.png"
 --boundary--
 
 ###
+#Get all posts
+GET http://localhost:9080/simple-rpg/api/posts
+
+###
+#Get particular post
+GET http://localhost:9080/simple-rpg/api/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
+
+###
+#Get all categories
+GET http://localhost:9080/simple-rpg/api/categories

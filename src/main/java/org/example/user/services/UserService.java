@@ -3,6 +3,8 @@ package org.example.user.services;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
+import org.example.post.entity.Post;
+import org.example.post.repository.api.PostRepository;
 import org.example.user.entity.User;
 import org.example.user.repository.api.UserRepository;
 import org.example.controller.servlet.exception.*;
@@ -21,10 +23,12 @@ import java.util.UUID;
 public class UserService {
 
     private final UserRepository repository;
+    private final PostRepository postRepository;
 
     @Inject
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, PostRepository postRepository) {
         this.repository = repository;
+        this.postRepository = postRepository;
     }
 
     public List<User> findAll() {
@@ -49,7 +53,12 @@ public class UserService {
     }
 
     public void delete(UUID id) {
-        repository.delete(repository.find(id).orElseThrow(NotFoundException::new));
+        User tmp = repository.find(id).orElseThrow(NotFoundException::new);
+        List<Post> posts = postRepository.findAllByUser(tmp);
+        for (Post post : posts) {
+            postRepository.delete(post);
+        }
+        repository.delete(tmp);
     }
 
     public void createAvatar(UUID id, InputStream avatar, String pathToAvatars) throws AlreadyExistsException {

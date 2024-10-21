@@ -171,6 +171,14 @@ public class DataStore {
         }
     }
 
+    public synchronized void deleteUser(User value) throws IllegalArgumentException {
+        if (users.removeIf(character -> character.getId().equals(value.getId()))) {
+            return;
+        } else {
+            throw new IllegalArgumentException("The user with id \"%s\" does not exist".formatted(value.getId()));
+        }
+    }
+
     /**
      * Clones existing post and updates relationships for values in storage
      *

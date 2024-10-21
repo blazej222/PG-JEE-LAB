@@ -27,9 +27,10 @@ public class UserInMemoryRepository implements UserRepository {
 
     @Override
     public Optional<User> find(UUID id) {
-        return store.findAllUsers().stream()
+        Optional<User> obj = store.findAllUsers().stream()
                 .filter(user -> user.getId().equals(id))
                 .findFirst();
+        return obj;
     }
 
     @Override
@@ -44,7 +45,8 @@ public class UserInMemoryRepository implements UserRepository {
 
     @Override
     public void delete(User entity) {
-        throw new UnsupportedOperationException("Not implemented.");
+        store.deleteUser(entity);
+        //throw new UnsupportedOperationException("Not implemented.");
     }
 
     @Override

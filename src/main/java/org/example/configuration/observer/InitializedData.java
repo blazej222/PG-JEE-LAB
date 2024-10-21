@@ -160,6 +160,9 @@ public class InitializedData implements ServletContextListener {
         postService.create(uhlbrecht);
         postService.create(eloise);
         postService.create(zereni);
+
+        userService.delete(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"));  //removing user will remove
+                                                                                            //all their posts
         requestContextController.deactivate();
     }
 
