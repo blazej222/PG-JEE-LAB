@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <ui:define name="content">
+        <h:outputStylesheet library="category" name="css/categories_list.css"/><!-- Automatically relocated to head. -->
+
+        <article class="text--justified">
+            <header><h2>Categories</h2></header>
+
+            <h:dataTable value="#{categoryList.categories.categories}" var="category"
+                         styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
+
+                <h:column>
+                    <f:facet name="header">Name</f:facet>
+                    <h:outputText value="#{category.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">View</f:facet>
+                    <h:link outcome="/category/category_view.xhtml" value="View">
+                        <f:param name="id" value="#{category.id}"/>
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:link outcome="/category/category_edit.xhtml" value="Edit">
+                        <f:param name="id" value="#{category.id}"/>
+                    </h:link>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Delete</f:facet>
+                    <h:form>
+                        <h:commandButton styleClass="btn" value="Delete"
+                                         action="#{categoryList.deleteAction(category)}"/>
+                    </h:form>
+                </h:column>
+
+                <f:facet name="footer">
+                    <h:button styleClass="btn" outcome="/category/category_create_basic.xhtml"
+                              value="Create new category"/>
+                </f:facet>
+            </h:dataTable>
+        </article>
+    </ui:define>
+
+</ui:composition>

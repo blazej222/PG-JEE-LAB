@@ -1,0 +1,29 @@
+public class Post implements Serializable {
+    private UUID id;
+    private String content;
+    private int amountOfLikes;
+    private User user;
+    private Category category;
+}
+
+
+public class User implements Serializable{
+    private UUID id;
+    private String name;
+    private LocalDate birthday;
+    private UserRoles role;
+    private List<Post> posts;
+    private byte[] avatar;
+
+}
+
+public class Category implements Serializable {
+    private UUID id;
+    private String name;
+    private int positionInHierarchy;
+    private List<Post> posts;
+}
+
+public enum UserRoles {
+    ADMIN,USER
+}

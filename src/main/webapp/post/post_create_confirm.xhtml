@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="jakarta.faces.html"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:f="jakarta.faces.core"
+                template="/WEB-INF/template/main.xhtml">
+
+    <f:metadata>
+        <f:viewAction action="#{postCreate.init()}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <article>
+            <header><h2>Create post - basic information</h2></header>
+            <h:form styleClass="container" onreset="onReset()" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn" value="Previous" immediate="true"
+                                         action="#{postCreate.goToPortraitAction()}"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:button styleClass="btn" value="Next" disabled="true"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Level &amp; Category
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.category.name}"/>
+                                level
+                                <h:outputText value="#{postCreate.post.level}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Experience
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.experience}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Life
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.health}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Strength
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.strength}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Constitution
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.constitution}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Charisma
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.charisma}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Age
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.age}"/>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                Background
+                            </div>
+                            <div class="col-6">
+                                <h:outputText value="#{postCreate.post.background}"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <h:graphicImage alt="Post portrait"
+                                        rendered="#{postCreate.post.portrait != null}"
+                                        value="#{postCreate.postPortraitUrl}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn btn-primary" value="Create"
+                                         action="#{postCreate.saveAction()}"/>
+                    </div>
+                    <div class="col-2 p-2 text-center">
+                        <h:commandButton styleClass="btn btn-secondary" value="Cancel"
+                                         action="#{postCreate.cancelAction()}"/>
+                    </div>
+                </div>
+            </h:form>
+        </article>
+    </ui:define>
+
+</ui:composition>

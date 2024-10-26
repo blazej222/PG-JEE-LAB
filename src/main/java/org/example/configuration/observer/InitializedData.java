@@ -100,21 +100,25 @@ public class InitializedData implements ServletContextListener {
         Category bard = Category.builder()
                 .id(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"))
                 .name("Category 1")
+                .positionInHierarchy(1)
                 .build();
 
         Category cleric = Category.builder()
                 .id(UUID.fromString("5d1da2ae-6a14-4b6d-8b4f-d117867118d4"))
                 .name("Category 2")
+                .positionInHierarchy(2)
                 .build();
 
         Category warrior = Category.builder()
                 .id(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd"))
                 .name("Category 3")
+                .positionInHierarchy(3)
                 .build();
 
         Category rogue = Category.builder()
                 .id(UUID.randomUUID())
                 .name("Category 4")
+                .positionInHierarchy(4)
                 .build();
 
         categoryservice.create(bard);
