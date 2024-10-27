@@ -122,6 +122,7 @@ public class DataStore {
      */
     public synchronized void updatePost(Post value) throws IllegalArgumentException {
         Post entity = cloneWithRelationships(value);
+        Post original = posts.stream().filter(post -> post.getId().equals(entity.getId())).findFirst().orElse(null);
         if (posts.removeIf(post -> post.getId().equals(value.getId()))) {
             posts.add(entity);
         } else {
@@ -134,6 +135,14 @@ public class DataStore {
         postCategoryList.add(entity);
         tmp.setPosts(postCategoryList);
         updateCategory(tmp);
+
+        // Remove post from old category
+        Category tmp2 = original.getCategory();
+        List<Post> postCategoryList2 = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getId().equals(tmp2.getId())).toList());
+        postCategoryList2.remove(original);
+        tmp2.setPosts(postCategoryList2);
+        updateCategory(tmp2);
+
     }
 
     /**
@@ -143,9 +152,17 @@ public class DataStore {
      * @throws IllegalArgumentException if post with provided id does not exist
      */
     public synchronized void deletePost(UUID id) throws IllegalArgumentException {
+        Post original = posts.stream().filter(post -> post.getId().equals(id)).findFirst().orElse(null);
         if (!posts.removeIf(posts -> posts.getId().equals(id))) {
             throw new IllegalArgumentException("The character with id \"%s\" does not exist".formatted(id));
         }
+
+        // Remove post from old category
+        Category tmp2 = original.getCategory();
+        List<Post> postCategoryList2 = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getId().equals(tmp2.getId())).toList());
+        postCategoryList2.remove(original);
+        tmp2.setPosts(postCategoryList2);
+        updateCategory(tmp2);
     }
 
     /**

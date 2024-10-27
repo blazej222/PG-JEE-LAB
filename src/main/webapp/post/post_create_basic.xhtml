@@ -11,54 +11,37 @@
 
     <ui:define name="content">
         <article>
-            <header><h2>Create post - basic information</h2></header>
+            <header><h2>Create post</h2></header>
             <h:form styleClass="container" onreset="onReset()" enctype="multipart/form-data">
-                <div class="row">
-                    <div class="col-2 p-2 text-center">
-                        <h:button styleClass="btn" value="Previous" disabled="true"/>
-                    </div>
-                    <div class="col-2 p-2 text-center">
-                        <h:commandButton styleClass="btn" value="Next"
-                                         action="#{postCreate.goToCategoryAction()}"/>
-                    </div>
+
+                <div>
+                    <h:outputLabel for="content" value="Content:" styleClass="form-label"/>
+                    <h:inputText id="content" value="#{postCreate.post.content}" styleClass="form-control"/>
                 </div>
 
-                <div class="row">
-                    <div class="col-4 p-2">
-                        <div class="form-outline">
-                            <h:inputText id="name" value="#{postCreate.post.name}" styleClass="form-control"/>
-                            <h:outputLabel for="name" value="Name:" styleClass="form-label"/>
+                <div>
+                    <h:outputLabel for="amountOfLikes" value="AmountOfLikes:"/>
+                    <h:inputText id="amountOfLikes" value="#{postCreate.post.amountOfLikes}" type="number"/>
+
+                </div>
+
+                <div>
+                    <p style="margin: 5px 0">Choose category:</p>
+                    <ui:repeat value="#{postCreate.categories}" var="category">
+                        <div class="form-check">
+                            <h:selectOneRadio id="radioId" group="category"
+                                              value="#{postCreate.post.category}">
+                                <f:selectItem itemValue="#{category}" itemLabel="#{category.name}"/>
+                            </h:selectOneRadio>
                         </div>
-                    </div>
+                    </ui:repeat>
                 </div>
 
-                <div class="row">
-                    <div class="col-4 p-2">
-                        <div class="form-outline">
-                            <h:inputText id="age" value="#{postCreate.post.age}" styleClass="form-control"/>
-                            <h:outputLabel for="age" value="Age:" styleClass="form-label"/>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-4 p-2">
-                        <div class="form-outline">
-                            <h:inputTextarea id="background" value="#{postCreate.post.background}"
-                                             styleClass="form-control" rows="4"/>
-                            <h:outputLabel for="background" value="Background:" styleClass="form-label"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-2 p-2 text-center">
-                        <h:button styleClass="btn btn-primary" value="Create" disabled="true"/>
-                    </div>
-                    <div class="col-2 p-2 text-center">
-                        <h:commandButton styleClass="btn btn-secondary" value="Cancel"
-                                         action="#{postCreate.cancelAction()}"/>
-                    </div>
+                <div class="button-container">
+                    <h:commandButton class="button" value="Create"
+                                     action="#{postCreate.saveAction()}"/>
+                    <h:commandButton class="button" type="reset" value="Reset"/>
                 </div>
             </h:form>
         </article>

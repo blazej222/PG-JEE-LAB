@@ -2,6 +2,7 @@ package org.example.post.view;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,12 +15,13 @@ import org.example.post.service.CategoryService;
 import org.example.post.service.PostService;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
-@RequestScoped
+@ViewScoped
 @Named
-public class CategoryView {
+public class CategoryView implements Serializable {
     private final CategoryService categoryService;
 
     private final ModelFunctionFactory factory;

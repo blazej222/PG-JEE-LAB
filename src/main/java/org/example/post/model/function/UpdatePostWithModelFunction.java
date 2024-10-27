@@ -1,6 +1,7 @@
 package org.example.post.model.function;
 
 import lombok.SneakyThrows;
+import org.example.post.entity.Category;
 import org.example.post.entity.Post;
 import org.example.post.model.PostEditModel;
 
@@ -11,12 +12,17 @@ public class UpdatePostWithModelFunction implements BiFunction<Post, PostEditMod
 
     @Override
     @SneakyThrows
-    public Post apply(Post post, PostEditModel postEditModel) {
+    public Post apply(Post post, PostEditModel request) {
         return Post.builder()
                 .id(post.getId())
-                .content(post.getContent())
-                .amountOfLikes(post.getAmountOfLikes())
-                .category(post.getCategory())
-                .build();
+                .content(request.getContent())
+                .amountOfLikes(request.getAmountOfLikes())
+                .category(Category.builder()
+                        .id(request.getCategory().getId())
+                        .name(request.getCategory().getName())
+                        .posts(request.getCategory().getPosts())
+                        .positionInHierarchy(request.getCategory().getPositionInHierarchy())
+                        .build()
+                ).build();
     }
 }

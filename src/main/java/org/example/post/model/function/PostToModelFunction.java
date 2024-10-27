@@ -13,7 +13,7 @@ public class PostToModelFunction implements Function<Post, PostModel>, Serializa
         return PostModel.builder()
                 .content(post.getContent())
                 .amountOfLikes(post.getAmountOfLikes())
-                .User(post.getUser().getName())
+                //.User(post.getUser().getName())
                 .Category(post.getCategory().getName())
                 .build();
     }

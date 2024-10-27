@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.java.Log;
 import org.example.component.ModelFunctionFactory;
 import org.example.post.model.CategoryModel;
@@ -33,9 +34,11 @@ public class PostCreate implements Serializable {
     private PostCreateModel post;
 
     @Getter
+    @Setter
     private List<CategoryModel> categories;
 
     private final Conversation conversation;
+
 
     @Inject
     public PostCreate(PostService postService, CategoryService categoryService, ModelFunctionFactory factory, Conversation conversation) {
