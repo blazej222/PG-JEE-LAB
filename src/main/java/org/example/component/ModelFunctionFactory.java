@@ -1,6 +1,8 @@
 package org.example.component;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.example.category.model.function.CategoriesToModelFunction;
+import org.example.category.model.function.CategoryToModelFunction;
 import org.example.post.model.function.*;
 
 @ApplicationScoped

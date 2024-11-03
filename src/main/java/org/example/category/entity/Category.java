@@ -1,30 +1,32 @@
-package org.example.post.entity;
+package org.example.category.entity;
+
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
-import org.example.category.entity.Category;
-import org.example.user.entity.User;
+import org.example.post.entity.Post;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-@ToString()
+@ToString
 @EqualsAndHashCode
-public class Post implements Serializable {
+public class Category implements Serializable {
     private UUID id;
-    private String content;
-    private int amountOfLikes;
-    private User user;
-    private Category category;
+    private String name;
+    private int positionInHierarchy;
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<Post> posts;
 }

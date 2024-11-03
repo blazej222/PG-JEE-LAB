@@ -1,6 +1,7 @@
 package org.example.post.model;
 
 import lombok.*;
+import org.example.category.model.CategoryModel;
 
 @Getter
 @Setter

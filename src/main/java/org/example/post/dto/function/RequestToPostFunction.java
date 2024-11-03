@@ -1,7 +1,7 @@
 package org.example.post.dto.function;
 
 import org.example.post.dto.PutPostRequest;
-import org.example.post.entity.Category;
+import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 
 import java.util.UUID;
@@ -16,7 +16,7 @@ public class RequestToPostFunction implements BiFunction<UUID, PutPostRequest, P
                 .content(request.getContent())
                 .amountOfLikes(request.getAmountOfLikes())
                 .category(Category.builder()
-                        .id(request.getUser()
+                        .id(request.getCategory()
                         )
                         .build())
                 .build();

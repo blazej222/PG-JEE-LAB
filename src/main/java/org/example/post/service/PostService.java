@@ -4,12 +4,11 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import org.example.post.entity.Post;
-import org.example.post.repository.api.CategoryRepository;
+import org.example.category.repository.api.CategoryRepository;
 import org.example.post.repository.api.PostRepository;
 import org.example.user.entity.User;
 import org.example.user.repository.api.UserRepository;
 
-import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

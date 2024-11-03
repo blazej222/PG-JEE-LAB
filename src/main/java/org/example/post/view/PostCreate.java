@@ -1,7 +1,5 @@
 package org.example.post.view;
 
-import jakarta.enterprise.context.Conversation;
-import jakarta.enterprise.context.ConversationScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -10,9 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.example.component.ModelFunctionFactory;
-import org.example.post.model.CategoryModel;
+import org.example.category.model.CategoryModel;
 import org.example.post.model.PostCreateModel;
-import org.example.post.service.CategoryService;
+import org.example.category.service.CategoryService;
 import org.example.post.service.PostService;
 
 import java.io.Serializable;

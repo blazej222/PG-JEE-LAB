@@ -18,11 +18,11 @@ public class PostToResponseFunction implements Function<Post, GetPostResponse> {
                         .name(entity.getCategory().getName())
                         .build()
                 )
-                .user(GetPostResponse.User.builder()
-                        .id(entity.getUser().getId())
-                        .name(entity.getUser().getName())
-                        .build()
-                )
+//                .user(GetPostResponse.User.builder()
+//                        .id(entity.getUser().getId())
+//                        .name(entity.getUser().getName())
+//                        .build()
+//                )
                 .build();
     }
 }

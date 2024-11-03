@@ -10,7 +10,8 @@ import org.example.user.dto.GetUsersResponse;
 import org.example.user.dto.PatchUserRequest;
 import org.example.user.dto.PutUserRequest;
 import org.example.user.services.UserService;
-import org.example.controller.servlet.exception.*;
+import jakarta.ws.rs.BadRequestException;
+import jakarta.ws.rs.NotFoundException;
 
 import java.io.IOException;
 import java.io.InputStream;

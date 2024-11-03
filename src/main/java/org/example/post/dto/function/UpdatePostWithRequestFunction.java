@@ -11,9 +11,10 @@ public class UpdatePostWithRequestFunction implements BiFunction<Post, PatchPost
     public Post apply(Post post, PatchPostRequest patchPostRequest) {
         return Post.builder()
                 .id(post.getId())
-                .content(post.getContent())
+                .content(patchPostRequest.getContent())
+                .amountOfLikes(patchPostRequest.getAmountOfLikes())
                 .category(post.getCategory())
-                .user(post.getUser())
+                //.user(post.getUser())
                 .build();
     }
 }

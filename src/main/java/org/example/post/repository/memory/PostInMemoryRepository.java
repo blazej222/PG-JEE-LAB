@@ -3,7 +3,7 @@ package org.example.post.repository.memory;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import org.example.datastore.component.DataStore;
-import org.example.post.entity.Category;
+import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 import org.example.post.repository.api.PostRepository;
 import org.example.user.entity.User;

@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.example.post.entity.Category;
-import org.example.user.entity.User;
 
 import java.util.UUID;
 

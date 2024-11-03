@@ -7,7 +7,8 @@ import org.example.post.entity.Post;
 import org.example.post.repository.api.PostRepository;
 import org.example.user.entity.User;
 import org.example.user.repository.api.UserRepository;
-import org.example.controller.servlet.exception.*;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.NotAllowedException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,12 +62,12 @@ public class UserService {
         repository.delete(tmp);
     }
 
-    public void createAvatar(UUID id, InputStream avatar, String pathToAvatars) throws AlreadyExistsException {
+    public void createAvatar(UUID id, InputStream avatar, String pathToAvatars) throws NotAllowedException {
         repository.find(id).ifPresent(user -> {
             try {
                 Path destinationPath = Path.of(pathToAvatars, id.toString() + ".png");
                 if (Files.exists(destinationPath)) {
-                    throw new AlreadyExistsException("Avatar already exists");
+                    throw new NotAllowedException("Avatar already exists");
                 }
                 Files.copy(avatar, destinationPath);
             } catch (IOException ex) {

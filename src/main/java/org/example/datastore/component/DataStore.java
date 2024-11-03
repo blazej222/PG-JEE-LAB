@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
-import org.example.post.entity.Category;
+import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 import org.example.serialization.component.CloningUtility;
 import org.example.user.entity.User;

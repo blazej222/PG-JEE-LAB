@@ -1,7 +1,7 @@
 package org.example.post.model.function;
 
 import lombok.SneakyThrows;
-import org.example.post.entity.Category;
+import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 import org.example.post.model.PostEditModel;
 

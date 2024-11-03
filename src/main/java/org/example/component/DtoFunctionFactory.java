@@ -1,6 +1,13 @@
 package org.example.component;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.example.category.dto.GetCategoriesResponse;
+import org.example.category.dto.GetCategoryResponse;
+import org.example.category.dto.function.CategoriesToResponseFunction;
+import org.example.category.dto.function.CategoryToResponseFunction;
+import org.example.category.dto.function.RequestToCategoryFunction;
+import org.example.category.dto.function.UpdateCategoryWithRequestFunction;
+import org.example.category.entity.Category;
 import org.example.post.dto.function.*;
 import org.example.post.entity.*;
 import org.example.post.dto.*;
@@ -97,5 +104,9 @@ public class DtoFunctionFactory {
     public UsersToResponseFunction usersToResponse() {
         return new UsersToResponseFunction();
     }
+
+    public RequestToCategoryFunction requestToCategory() {return new RequestToCategoryFunction();}
+
+    public UpdateCategoryWithRequestFunction updateCategory() {return new UpdateCategoryWithRequestFunction();}
 
 }

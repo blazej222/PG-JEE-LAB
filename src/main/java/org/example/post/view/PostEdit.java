@@ -1,6 +1,5 @@
 package org.example.post.view;
 
-import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -10,9 +9,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.component.ModelFunctionFactory;
 import org.example.post.entity.Post;
-import org.example.post.model.CategoryModel;
+import org.example.category.model.CategoryModel;
 import org.example.post.model.PostEditModel;
-import org.example.post.service.CategoryService;
+import org.example.category.service.CategoryService;
 import org.example.post.service.PostService;
 
 import java.io.IOException;
