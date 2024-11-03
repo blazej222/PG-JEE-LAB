@@ -27,24 +27,12 @@
                 </h:column>
 
                 <h:column>
-                    <f:facet name="header">Edit</f:facet>
-                    <h:link outcome="/category/category_edit.xhtml" value="Edit">
-                        <f:param name="id" value="#{category.id}"/>
-                    </h:link>
-                </h:column>
-
-                <h:column>
                     <f:facet name="header">Delete</f:facet>
                     <h:form>
                         <h:commandButton styleClass="btn" value="Delete"
                                          action="#{categoryList.deleteAction(category)}"/>
                     </h:form>
                 </h:column>
-
-                <f:facet name="footer">
-                    <h:button styleClass="btn" outcome="/category/category_create_basic.xhtml"
-                              value="Create new category"/>
-                </f:facet>
             </h:dataTable>
         </article>
     </ui:define>

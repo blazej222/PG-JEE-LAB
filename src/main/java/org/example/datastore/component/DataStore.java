@@ -159,7 +159,7 @@ public class DataStore {
 
         // Remove post from old category
         Category tmp2 = original.getCategory();
-        List<Post> postCategoryList2 = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getId().equals(tmp2.getId())).toList());
+        List<Post> postCategoryList2 = new java.util.ArrayList<>(findAllPosts().stream().filter(category -> category.getCategory().getId().equals(tmp2.getId())).toList());
         postCategoryList2.remove(original);
         tmp2.setPosts(postCategoryList2);
         updateCategory(tmp2);
