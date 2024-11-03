@@ -2,6 +2,7 @@ package org.example.post.view;
 
 import jakarta.enterprise.context.Conversation;
 import jakarta.enterprise.context.ConversationScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@ConversationScoped
+@ViewScoped
 @Named
 @Log
 @NoArgsConstructor(force = true)
@@ -31,60 +32,36 @@ public class PostCreate implements Serializable {
     private final ModelFunctionFactory factory;
 
     @Getter
+    @Setter
     private PostCreateModel post;
 
     @Getter
     @Setter
     private List<CategoryModel> categories;
 
-    private final Conversation conversation;
-
 
     @Inject
-    public PostCreate(PostService postService, CategoryService categoryService, ModelFunctionFactory factory, Conversation conversation) {
+    public PostCreate(PostService postService, CategoryService categoryService, ModelFunctionFactory factory) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.factory = factory;
-        this.conversation = conversation;
     }
 
     public void init(){
-        if(conversation.isTransient()){
-            categories = categoryService.findAll().stream()
-                    .map(factory.categoryToModel())
-                    .collect(Collectors.toList());
-            post = PostCreateModel.builder()
-                    .id(UUID.randomUUID())
-                    .build();
-            conversation.begin();
-        }
-    }
-
-    public String goToCategoryAction(){
-        return "/post/post_create_category.xhtml?faces-redirect=true";
-    }
-
-    public Object goToBasicAction(){
-        return "/post/post_create_basic.xhtml?faces-redirect=true";
-    }
-
-    public String cancelAction(){
-        conversation.end();
-        return "/post/post_list.xhtml?faces-redirect=true";
-    }
-
-    public String goToConfirmAction(){
-        return "/post/post_create_confirm.xhtml?faces-redirect=true";
+        categories = categoryService.findAll().stream()
+                .map(factory.categoryToModel())
+                .collect(Collectors.toList());
+        post = PostCreateModel.builder()
+                .id(UUID.randomUUID())
+                .build();
     }
 
     public String saveAction(){
+        if(post.getCategory() == null || post.getContent() == null){
+            return null;
+        }
         postService.create(factory.modelToPost().apply(post));
-        conversation.end();
         return "/post/post_list.xhtml?faces-redirect=true";
-    }
-
-    public String getConversationId(){
-        return conversation.getId();
     }
 
 }
