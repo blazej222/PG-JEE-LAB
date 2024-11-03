@@ -22,7 +22,6 @@
                             </div>
                             <div class="col-6">
                                 <h:outputText value="#{categoryView.category.positionInHierarchy}"/>
-                                    Position in hierarchy
                                 <h:dataTable value="#{categoryView.category.posts}" var="post"
                                              styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
 
@@ -52,6 +51,11 @@
                                                              action="#{categoryView.deletePost(post.id)}"/>
                                         </h:form>
                                     </h:column>
+
+                                    <f:facet name="footer">
+                                        <h:button styleClass="btn" outcome="/post/post_create_basic.xhtml"
+                                                  value="Create new post"/>
+                                    </f:facet>
                                     s
                                 </h:dataTable>
                             </div>
