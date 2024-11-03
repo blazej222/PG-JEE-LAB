@@ -6,24 +6,27 @@ GET http://localhost:9080/simple-rpg/api/posts
 GET http://localhost:9080/simple-rpg/api/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
 
 ###
+#Get all category posts
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts
+
+###
 #Create new post
-PUT http://localhost:9080/simple-rpg/api/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+PUT http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
 Content-Type: application/json
 
 {
   "content": "Testcontent1",
-  "amountOfLikes": 123,
-  "category": "f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"
+  "amountOfLikes": 123
 }
 
 ###
 #Get newly created post
-GET http://localhost:9080/simple-rpg/api/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
 
 
 ###
 #Patch newly created post
-PATCH http://localhost:9080/simple-rpg/api/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+PATCH http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
 Content-Type: application/json
 
 {
@@ -33,7 +36,7 @@ Content-Type: application/json
 
 ###
 #Delete newly created post
-DELETE http://localhost:9080/simple-rpg/api/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+DELETE http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
 
 
 ###

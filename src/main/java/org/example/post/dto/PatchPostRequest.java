@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -19,4 +21,5 @@ import lombok.ToString;
 public class PatchPostRequest {
     private String content;
     private int amountOfLikes;
+    private UUID category;
 }

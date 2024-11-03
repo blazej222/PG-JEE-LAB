@@ -83,13 +83,10 @@ public class PostRestController implements PostController {
 
     @Override
     @SneakyThrows
-    public void putPost(UUID id, PutPostRequest request) {
+    public void putPost(UUID id, PutPostRequest request,UUID catid) {
         try {
+            request.setCategory(catid);
             service.create(factory.requestToPost().apply(id, request));
-            response.setHeader("Location",uriInfo.getBaseUriBuilder().
-                    path(PostController.class,"getPost")
-                    .build(id)
-                    .toString());
             throw new WebApplicationException(Response.Status.CREATED);
         } catch (IllegalArgumentException ex) {
             throw new BadRequestException(ex);
@@ -97,7 +94,8 @@ public class PostRestController implements PostController {
     }
 
     @Override
-    public void patchPost(UUID id, PatchPostRequest request) {
+    public void patchPost(UUID id, PatchPostRequest request, UUID catid) {
+        request.setCategory(catid);
         service.find(id).ifPresentOrElse(
                 entity -> service.update(factory.updatePost().apply(entity, request)),
                 () -> {

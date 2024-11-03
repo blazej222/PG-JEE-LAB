@@ -36,22 +36,22 @@ public interface PostController {
     GetPostsResponse getUserPosts(@PathParam("id")UUID id);
 
     @GET
-    @Path("/posts/{id}")
+    @Path("/categories/{catid}/posts/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     GetPostResponse getPost(@PathParam("id")UUID id);
 
     @PUT
-    @Path("/posts/{id}")
+    @Path("/categories/{catid}/posts/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    void putPost(@PathParam("id") UUID id, PutPostRequest postRequest);
+    void putPost(@PathParam("id") UUID id, PutPostRequest postRequest, @PathParam("catid")UUID catid);
 
     @PATCH
-    @Path("/posts/{id}")
+    @Path("/categories/{catid}/posts/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
-    void patchPost(@PathParam("id") UUID id, PatchPostRequest postRequest);
+    void patchPost(@PathParam("id") UUID id, PatchPostRequest postRequest, @PathParam("catid")UUID catid);
 
     @DELETE
-    @Path("/posts/{id}")
+    @Path("/categories/{catid}/posts/{id}")
     void deletePost(@PathParam("id")UUID id);
 
 }
