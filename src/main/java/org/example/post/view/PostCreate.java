@@ -1,5 +1,6 @@
 package org.example.post.view;
 
+import jakarta.ejb.EJB;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -23,9 +24,9 @@ import java.util.stream.Collectors;
 @Log
 @NoArgsConstructor(force = true)
 public class PostCreate implements Serializable {
-    private final PostService postService;
+    private PostService postService;
 
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
     private final ModelFunctionFactory factory;
 
@@ -39,9 +40,7 @@ public class PostCreate implements Serializable {
 
 
     @Inject
-    public PostCreate(PostService postService, CategoryService categoryService, ModelFunctionFactory factory) {
-        this.postService = postService;
-        this.categoryService = categoryService;
+    public PostCreate(ModelFunctionFactory factory) {
         this.factory = factory;
     }
 
@@ -52,6 +51,16 @@ public class PostCreate implements Serializable {
         post = PostCreateModel.builder()
                 .id(UUID.randomUUID())
                 .build();
+    }
+
+    @EJB
+    public void setPostService(PostService postService) {
+        this.postService = postService;
+    }
+
+    @EJB
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     public String saveAction(){

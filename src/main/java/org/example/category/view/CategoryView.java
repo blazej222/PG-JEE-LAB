@@ -1,5 +1,6 @@
 package org.example.category.view;
 
+import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -21,7 +22,7 @@ import java.util.UUID;
 @ViewScoped
 @Named
 public class CategoryView implements Serializable {
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
     private final ModelFunctionFactory factory;
     private final PostService postService;
@@ -34,10 +35,14 @@ public class CategoryView implements Serializable {
     private CategoryModel category;
 
     @Inject
-    public CategoryView(final CategoryService categoryService, final ModelFunctionFactory factory, PostService postService) {
-        this.categoryService = categoryService;
+    public CategoryView( final ModelFunctionFactory factory, PostService postService) {
         this.factory = factory;
         this.postService = postService;
+    }
+
+    @EJB
+    public void setCategoryService( final CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     public void init() throws IOException {

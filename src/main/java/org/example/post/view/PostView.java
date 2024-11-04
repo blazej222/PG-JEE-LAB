@@ -1,5 +1,6 @@
 package org.example.post.view;
 
+import jakarta.ejb.EJB;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @ViewScoped
 @Named
 public class PostView implements Serializable {
-    private final PostService postService;
+    private PostService postService;
 
     private final ModelFunctionFactory factory;
 
@@ -32,9 +33,13 @@ public class PostView implements Serializable {
     private PostModel post;
 
     @Inject
-    public PostView(final PostService postService, final ModelFunctionFactory factory) {
-        this.postService = postService;
+    public PostView(final ModelFunctionFactory factory) {
         this.factory = factory;
+    }
+
+    @EJB
+    public void setPostService(final PostService postService) {
+        this.postService = postService;
     }
 
     public void init() throws IOException{

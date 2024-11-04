@@ -1,11 +1,14 @@
-package org.example.configuration.observer;
+package org.example.configuration.singleton;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.ejb.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.context.control.RequestContextController;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.servlet.ServletContextListener;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
@@ -16,7 +19,6 @@ import org.example.user.entity.UserRoles;
 import org.example.user.services.UserService;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 /**
@@ -25,50 +27,49 @@ import java.util.UUID;
  * cases of empty database. When using persistence storage application instance should be initialized only during first
  * run in order to init database with starting data. Good place to create first default admin user.
  */
-@ApplicationScoped
+@Singleton
+@Startup
+@TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
+@NoArgsConstructor
 public class InitializedData implements ServletContextListener {
 
     /**
      * Post service.
      */
-    private final PostService postService;
+    private PostService postService;
 
     /**
      * User service.
      */
-    private final UserService userService;
+    private UserService userService;
 
     /**
      * Category service.
      */
-    private final CategoryService categoryservice;
+    private CategoryService categoryservice;
 
-    private final RequestContextController requestContextController;
-
-    @Inject
-    public InitializedData(
-            PostService postService,
-            UserService userService,
-            CategoryService categoryservice,
-            RequestContextController requestContextController
-    ){
+    @EJB
+    public void setPostService(PostService postService) {
         this.postService = postService;
-        this.userService = userService;
-        this.categoryservice = categoryservice;
-        this.requestContextController = requestContextController;
     }
 
-    public void contextInitialized(@Observes @Initialized(ApplicationScoped.class) Object init) {
-        init();
+    @EJB
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @EJB
+    public void setCategoryservice(CategoryService categoryservice) {
+        this.categoryservice = categoryservice;
     }
 
     /**
      * Initializes database with some example values. Should be called after creating this object. This object should be
      * created only once.
      */
+    @PostConstruct
     @SneakyThrows
     private void init() {
-        requestContextController.activate();
         if(userService.find("Alice").isEmpty()) {
             User admin = User.builder()
                     .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
@@ -163,7 +164,6 @@ public class InitializedData implements ServletContextListener {
             postService.create(zereni);
 
         }
-        requestContextController.deactivate();
     }
 
 }

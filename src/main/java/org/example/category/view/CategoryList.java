@@ -1,6 +1,7 @@
 package org.example.category.view;
 
 
+import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -11,16 +12,20 @@ import org.example.category.service.CategoryService;
 @RequestScoped
 @Named
 public class CategoryList {
-    private final CategoryService categoryService;
+    private CategoryService categoryService;
 
     private CategoriesModel categories;
 
     private final ModelFunctionFactory functionFactory;
 
     @Inject
-    public CategoryList(CategoryService categoryService, ModelFunctionFactory functionFactory) {
-        this.categoryService = categoryService;
+    public CategoryList(ModelFunctionFactory functionFactory) {
         this.functionFactory = functionFactory;
+    }
+
+    @EJB
+    public void setCategoryService(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     public CategoriesModel getCategories(){

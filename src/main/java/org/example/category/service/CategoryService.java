@@ -1,5 +1,7 @@
 package org.example.category.service;
 
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -14,7 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor(force = true)
 public class CategoryService {
         /**
@@ -52,18 +55,15 @@ public class CategoryService {
          *
          * @param category new category to be saved
          */
-        @Transactional
         public void create(Category category) {
             repository.create(category);
         }
 
-        @Transactional
         public void delete(UUID id) {
             Category tmp = repository.find(id).orElseThrow(NotFoundException::new);
             repository.delete(tmp);
         }
 
-        @Transactional
         public void update(Category category) {
             repository.update(category);
         }

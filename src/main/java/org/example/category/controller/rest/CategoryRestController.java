@@ -1,5 +1,6 @@
 package org.example.category.controller.rest;
 
+import jakarta.ejb.EJB;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.Path;
@@ -19,13 +20,17 @@ import java.util.UUID;
 
 @Path("")
 public class CategoryRestController implements CategoryController {
-    private final CategoryService service;
+    private CategoryService service;
     private final DtoFunctionFactory factory;
 
     @Inject
-    public CategoryRestController(CategoryService service, DtoFunctionFactory factory) {
-        this.service = service;
+    public CategoryRestController( DtoFunctionFactory factory) {
         this.factory = factory;
+    }
+
+    @EJB
+    public void setService(CategoryService service) {
+        this.service = service;
     }
 
     @Override

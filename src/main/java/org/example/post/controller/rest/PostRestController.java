@@ -1,5 +1,7 @@
 package org.example.post.controller.rest;
 
+import jakarta.ejb.EJB;
+import jakarta.ejb.EJBException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,7 +30,7 @@ public class PostRestController implements PostController {
     /**
      * Post service.
      */
-    private final PostService service;
+    private PostService service;
 
     /**
      * Factory producing functions for conversion between DTO and entities.
@@ -49,8 +51,7 @@ public class PostRestController implements PostController {
      * @param factory factory producing functions for conversion between DTO and entities
      */
     @Inject
-    public PostRestController(PostService service, DtoFunctionFactory factory, @SuppressWarnings("CdiInjectionPointsInspection") UriInfo uriInfo) {
-        this.service = service;
+    public PostRestController(DtoFunctionFactory factory, @SuppressWarnings("CdiInjectionPointsInspection") UriInfo uriInfo) {
         this.factory = factory;
         this.uriInfo = uriInfo;
     }
@@ -65,6 +66,11 @@ public class PostRestController implements PostController {
         return service.findAllByCategory(id)
                 .map(factory.postsToResponse())
                 .orElseThrow(NotFoundException::new);
+    }
+
+    @EJB
+    public void setService(PostService service) {
+        this.service = service;
     }
 
     @Override
@@ -88,7 +94,7 @@ public class PostRestController implements PostController {
             request.setCategory(catid);
             service.create(factory.requestToPost().apply(id, request));
             throw new WebApplicationException(Response.Status.CREATED);
-        } catch (IllegalArgumentException ex) {
+        } catch (EJBException ex) {
             throw new BadRequestException(ex);
         }
     }

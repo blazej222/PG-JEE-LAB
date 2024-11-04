@@ -1,5 +1,7 @@
 package org.example.post.service;
 
+import jakarta.ejb.LocalBean;
+import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -17,7 +19,8 @@ import java.util.UUID;
 /**
  * Service layer for all business actions regarding post entity.
  */
-@ApplicationScoped
+@LocalBean
+@Stateless
 @NoArgsConstructor(force = true)
 public class PostService {
 
@@ -78,7 +81,7 @@ public class PostService {
      *
      * @param post new post
      */
-    @Transactional
+
     public void create(Post post) {
         postRepository.create(post);
     }
@@ -88,7 +91,7 @@ public class PostService {
      *
      * @param post post to be updated
      */
-    @Transactional
+
     public void update(Post post) {
         postRepository.update(post);
     }
@@ -98,7 +101,7 @@ public class PostService {
      *
      * @param id existing post's id to be deleted
      */
-    @Transactional
+
     public void delete(UUID id) {
         postRepository.delete(postRepository.find(id).orElseThrow());
     }
