@@ -2,6 +2,9 @@ package org.example.user.controller.simple;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.UriInfo;
 import lombok.NoArgsConstructor;
 import org.example.component.DtoFunctionFactory;
 import org.example.user.controller.api.UserController;
@@ -20,18 +23,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
-@NoArgsConstructor(force = true)
-@ApplicationScoped
-public class UserSimpleController implements UserController {
+@jakarta.ws.rs.Path("")
+public class UserRequestController implements UserController {
 
     private final UserService userService;
 
     private final DtoFunctionFactory factory;
 
+    private final UriInfo uriInfo;
+
+    private HttpServletResponse response;
+
+    @Context
+    public void setResponse(final HttpServletResponse response) {
+        this.response = response;
+    }
+
     @Inject
-    public UserSimpleController(DtoFunctionFactory factory, UserService userService) {
+    public UserRequestController(DtoFunctionFactory factory, UserService userService,@SuppressWarnings("CdiInjectionPointsInspection") UriInfo uriInfo) {
         this.factory = factory;
         this.userService = userService;
+        this.uriInfo = uriInfo;
     }
 
     @Override
@@ -50,6 +62,10 @@ public class UserSimpleController implements UserController {
     public void putUser(UUID id, PutUserRequest request) {
         try {
             userService.create(factory.requestToUser().apply(id, request));
+            response.setHeader("Location", uriInfo.getBaseUriBuilder()
+                    .path(UserController.class,"getUser")
+                    .build(id)
+                    .toString());
         } catch (IllegalArgumentException ex) {
             throw new BadRequestException(ex);
         }

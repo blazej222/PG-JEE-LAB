@@ -26,10 +26,8 @@ import java.util.UUID;
 
 public class PutUserRequest {
     private String name;
+    private String password;
     private LocalDate birthday;
     private UserRoles role;
     private List<Post> posts;
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    private byte[] avatar;
 }

@@ -12,8 +12,8 @@ public class RequestToUserFunction implements BiFunction<UUID, PutUserRequest, U
         return User.builder()
                 .id(uuid)
                 .name(request.getName())
+                .password(request.getPassword())
                 .birthday(request.getBirthday())
-                .avatar(request.getAvatar())
                 .build();
     }
 }

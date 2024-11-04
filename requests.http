@@ -78,3 +78,36 @@ GET http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70
 ###
 #Delete existing category
 DELETE http://localhost:9080/simple-rpg/api/categories/5d1da2ae-6a14-4b6d-8b4f-d117867118d4
+
+###
+# Get all users
+
+GET http://localhost:9080/simple-rpg/api/users
+
+###
+
+# Get single user
+
+GET http://localhost:9080/simple-rpg/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e
+
+###
+
+# Get single user. Not existing.
+
+GET http://localhost:9080/simple-rpg/api/users/82e1c2a9-7f57-439b-b53d-6db88b071e4e
+
+###
+#Create new user
+
+PUT http://localhost:9080/simple-rpg/api/users/1231c2a9-7f57-439b-b53d-6db88b071f8f
+Content-Type: application/json
+
+{
+  "name": "newuser",
+  "password": "pass123"
+}
+
+###
+#Get new user
+
+GET http://localhost:9080/simple-rpg/api/users/1231c2a9-7f57-439b-b53d-6db88b071f8f

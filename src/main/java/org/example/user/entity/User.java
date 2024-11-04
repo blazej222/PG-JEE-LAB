@@ -34,6 +34,9 @@ public class User implements Serializable{
     private UserRoles role;
 
     @ToString.Exclude
+    private String password;
+
+    @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Post> posts;
