@@ -2,6 +2,7 @@ package org.example.post.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.example.post.entity.Post;
 import org.example.category.repository.api.CategoryRepository;
@@ -58,15 +59,6 @@ public class PostService {
     }
 
     /**
-     * @param id   post's id
-     * @param user existing user
-     * @return selected post for user
-     */
-    public Optional<Post> find(User user, UUID id) {
-        return postRepository.findByIdAndUser(id, user);
-    }
-
-    /**
      * @return all available posts
      */
     public List<Post> findAll() {
@@ -86,6 +78,7 @@ public class PostService {
      *
      * @param post new post
      */
+    @Transactional
     public void create(Post post) {
         postRepository.create(post);
     }
@@ -95,6 +88,7 @@ public class PostService {
      *
      * @param post post to be updated
      */
+    @Transactional
     public void update(Post post) {
         postRepository.update(post);
     }
@@ -104,6 +98,7 @@ public class PostService {
      *
      * @param id existing post's id to be deleted
      */
+    @Transactional
     public void delete(UUID id) {
         postRepository.delete(postRepository.find(id).orElseThrow());
     }

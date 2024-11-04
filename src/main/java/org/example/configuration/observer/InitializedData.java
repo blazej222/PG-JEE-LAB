@@ -69,113 +69,100 @@ public class InitializedData implements ServletContextListener {
     @SneakyThrows
     private void init() {
         requestContextController.activate();
-        User admin = User.builder()
-                .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
-                .name("admin")
-                .birthday(LocalDate.of(1990, 10, 21))
-                .role(UserRoles.ADMIN)
-                .build();
+        if(userService.find("Alice").isEmpty()) {
+            User admin = User.builder()
+                    .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
+                    .name("admin")
+                    .birthday(LocalDate.of(1990, 10, 21))
+                    .role(UserRoles.ADMIN)
+                    .build();
 
-        User kevin = User.builder()
-                .id(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"))
-                .name("Kevin")
-                .birthday(LocalDate.of(2001, 1, 16))
-                .role(UserRoles.USER)
-                .build();
+            User kevin = User.builder()
+                    .id(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"))
+                    .name("Kevin")
+                    .birthday(LocalDate.of(2001, 1, 16))
+                    .role(UserRoles.USER)
+                    .build();
 
-        User alice = User.builder()
-                .id(UUID.fromString("ed6cfb2a-cad7-47dd-9b56-9d1e3c7a4197"))
-                .name("Alice")
-                .birthday(LocalDate.of(2002, 3, 19))
-                .role(UserRoles.USER)
-                .build();
+            User alice = User.builder()
+                    .id(UUID.fromString("ed6cfb2a-cad7-47dd-9b56-9d1e3c7a4197"))
+                    .name("Alice")
+                    .birthday(LocalDate.of(2002, 3, 19))
+                    .role(UserRoles.USER)
+                    .build();
 
-        userService.create(admin);
-        userService.create(kevin);
-        userService.create(alice);
+            userService.create(admin);
+            userService.create(kevin);
+            userService.create(alice);
 
-//        System.out.println("Executing initialization");
-//        System.out.println(userService.find("81e1c2a9-7f57-439b-b53d-6db88b071e4e").get().getName());
 
-        Category bard = Category.builder()
-                .id(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"))
-                .name("Category 1")
-                .positionInHierarchy(1)
-                .build();
+            Category bard = Category.builder()
+                    .id(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"))
+                    .name("Category 1")
+                    .positionInHierarchy(1)
+                    .build();
 
-        Category cleric = Category.builder()
-                .id(UUID.fromString("5d1da2ae-6a14-4b6d-8b4f-d117867118d4"))
-                .name("Category 2")
-                .positionInHierarchy(2)
-                .build();
+            Category cleric = Category.builder()
+                    .id(UUID.fromString("5d1da2ae-6a14-4b6d-8b4f-d117867118d4"))
+                    .name("Category 2")
+                    .positionInHierarchy(2)
+                    .build();
 
-        Category warrior = Category.builder()
-                .id(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd"))
-                .name("Category 3")
-                .positionInHierarchy(3)
-                .build();
+            Category warrior = Category.builder()
+                    .id(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd"))
+                    .name("Category 3")
+                    .positionInHierarchy(3)
+                    .build();
 
-        Category rogue = Category.builder()
-                .id(UUID.randomUUID())
-                .name("Category 4")
-                .positionInHierarchy(4)
-                .build();
+            Category rogue = Category.builder()
+                    .id(UUID.randomUUID())
+                    .name("Category 4")
+                    .positionInHierarchy(4)
+                    .build();
 
-        categoryservice.create(bard);
-        categoryservice.create(cleric);
-        categoryservice.create(warrior);
-        categoryservice.create(rogue);
+            categoryservice.create(bard);
+            categoryservice.create(cleric);
+            categoryservice.create(warrior);
+            categoryservice.create(rogue);
 
-        Post calvian = Post.builder()
-                .id(UUID.fromString("525d3e7b-bb1f-4c13-bf17-926d1a12e4c0"))
-                .content("Calvian")
-                .amountOfLikes(7)
-                .category(bard)
-                .user(kevin)
-                .build();
+            Post calvian = Post.builder()
+                    .id(UUID.fromString("525d3e7b-bb1f-4c13-bf17-926d1a12e4c0"))
+                    .content("Calvian")
+                    .amountOfLikes(7)
+                    .category(bard)
+                    .user(kevin)
+                    .build();
 
-        Post uhlbrecht = Post.builder()
-                .id(UUID.fromString("cc0b0577-bb6f-45b7-81d6-3db88e6ac19f"))
-                .content("Uhlbrecht")
-                .amountOfLikes(77)
-                .category(cleric)
-                .user(kevin)
-                .build();
+            Post uhlbrecht = Post.builder()
+                    .id(UUID.fromString("cc0b0577-bb6f-45b7-81d6-3db88e6ac19f"))
+                    .content("Uhlbrecht")
+                    .amountOfLikes(77)
+                    .category(cleric)
+                    .user(kevin)
+                    .build();
 
-        Post eloise = Post.builder()
-                .id(UUID.fromString("f08ef7e3-7f2a-4378-b1fb-2922d730c70d"))
-                .content("Eloise")
-                .amountOfLikes(777)
-                .category(warrior)
-                .user(alice)
-                .build();
+            Post eloise = Post.builder()
+                    .id(UUID.fromString("f08ef7e3-7f2a-4378-b1fb-2922d730c70d"))
+                    .content("Eloise")
+                    .amountOfLikes(777)
+                    .category(warrior)
+                    .user(alice)
+                    .build();
 
-        Post zereni = Post.builder()
-                .id(UUID.fromString("ff327e8a-77c0-4f9b-90a2-89e16895d1e1"))
-                .content("Zereni")
-                .amountOfLikes(7777)
-                .category(rogue)
-                .user(alice)
-                .build();
+            Post zereni = Post.builder()
+                    .id(UUID.fromString("ff327e8a-77c0-4f9b-90a2-89e16895d1e1"))
+                    .content("Zereni")
+                    .amountOfLikes(7777)
+                    .category(rogue)
+                    .user(alice)
+                    .build();
 
-        postService.create(calvian);
-        postService.create(uhlbrecht);
-        postService.create(eloise);
-        postService.create(zereni);
+            postService.create(calvian);
+            postService.create(uhlbrecht);
+            postService.create(eloise);
+            postService.create(zereni);
 
-        //userService.delete(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"));  //removing user will remove all their posts
-
-        //categoryservice.delete(UUID.fromString("f5875513-bf7b-4ae1-b8a5-5b70a1b90e76"));
-
-//        Category warrior1 = Category.builder()
-//                .id(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd"))
-//                .name("Category 33")
-//                .build();
-
-        //categoryservice.update(warrior1);
-        Category tmp = categoryservice.find(UUID.fromString("2d9b1e8c-67c5-4188-a911-5f064a63d8cd")).orElseThrow(RuntimeException::new);
-        List<Post> tmpPosts = tmp.getPosts();
-        System.out.println(tmpPosts);
+        }
         requestContextController.deactivate();
     }
 

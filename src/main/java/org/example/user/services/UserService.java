@@ -2,6 +2,7 @@ package org.example.user.services;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.example.post.entity.Post;
 import org.example.post.repository.api.PostRepository;
@@ -44,15 +45,17 @@ public class UserService {
         return repository.findByName(name);
     }
 
+    @Transactional
     public void create(User user) {
         repository.create(user);
     }
 
-
+    @Transactional
     public void update(User user) {
         repository.update(user);
     }
 
+    @Transactional
     public void delete(UUID id) {
         User tmp = repository.find(id).orElseThrow(NotFoundException::new);
         List<Post> posts = postRepository.findAllByUser(tmp);

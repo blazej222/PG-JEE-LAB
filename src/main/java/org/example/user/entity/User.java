@@ -1,5 +1,6 @@
 package org.example.user.entity;
 
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -23,13 +24,20 @@ import java.util.UUID;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
-
+@Entity
+@Table(name="users")
 public class User implements Serializable{
+    @Id
     private UUID id;
     private String name;
     private LocalDate birthday;
     private UserRoles role;
+
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Post> posts;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private byte[] avatar;

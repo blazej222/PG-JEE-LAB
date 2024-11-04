@@ -11,8 +11,6 @@ import java.util.UUID;
 
 public interface PostRepository extends Repository<Post, UUID> {
 
-    Optional<Post> findByIdAndUser(UUID id, User user);
-
     List<Post> findAllByUser(User user);
 
     List<Post> findAllByCategory(Category category);

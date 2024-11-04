@@ -2,6 +2,7 @@ package org.example.category.service;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
@@ -51,26 +52,20 @@ public class CategoryService {
          *
          * @param category new category to be saved
          */
+        @Transactional
         public void create(Category category) {
             repository.create(category);
         }
 
+        @Transactional
         public void delete(UUID id) {
             Category tmp = repository.find(id).orElseThrow(NotFoundException::new);
-            List<Post> posts = postRepository.findAllByCategory(tmp);
-            for (Post post : posts) {
-                postRepository.delete(post);
-            }
             repository.delete(tmp);
         }
 
+        @Transactional
         public void update(Category category) {
-            List<Post> posts = postRepository.findAllByCategory(repository.find(category.getId()).orElseThrow(NotFoundException::new));
             repository.update(category);
-            for (Post post : posts) {
-                post.setCategory(category);
-                postRepository.update(post); //update references
-            }
         }
 
 }
