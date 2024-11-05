@@ -24,7 +24,7 @@ public class PostList {
 
     public PostsModel getPosts() {
         if(posts == null) {
-            posts = factory.postsToModel().apply(postService.findAll());
+            posts = factory.postsToModel().apply(postService.findAllForCallerPrincipal());
         }
         return posts;
     }

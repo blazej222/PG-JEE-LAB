@@ -16,9 +16,9 @@ public class ModelFunctionFactory {
         return new PostsToModelFunction();
     }
 
-    public PostToEditModelFunction postToEditModel(){
-        return new PostToEditModelFunction();
-    }
+//    public PostToEditModelFunction postToEditModel(){
+//        return new PostToEditModelFunction(userToModel());
+//    }
 
     public ModelToPostFunction modelToPost(){
         return new ModelToPostFunction();
@@ -35,4 +35,23 @@ public class ModelFunctionFactory {
     public UpdatePostWithModelFunction updatePost(){
         return new UpdatePostWithModelFunction();
     }
+
+//    /**
+//     * Returns a function to convert a single {@link User} to {@link UserModel}.
+//     *
+//     * @return UserToModelFunction instance
+//     */
+//    public UserToModelFunction userToModel() {
+//        return new UserToModelFunction();
+//    }
+//
+//    /**
+//     * Returns a function to convert a list {@link Character} to {@link UsersModel}.
+//     *
+//     * @return UserToModelFunction instance
+//     */
+//    public UsersToModelFunction usersToModel() {
+//        return new UsersToModelFunction();
+//    }
+
 }

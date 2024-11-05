@@ -67,7 +67,7 @@ public class PostCreate implements Serializable {
         if(post.getCategory() == null || post.getContent() == null){
             return null;
         }
-        postService.create(factory.modelToPost().apply(post));
+        postService.createForCallerPrincipal(factory.modelToPost().apply(post));
         return "/post/post_list.xhtml?faces-redirect=true";
     }
 

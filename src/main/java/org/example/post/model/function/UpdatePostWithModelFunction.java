@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 import org.example.post.model.PostEditModel;
+import org.example.user.entity.User;
 
 import java.io.Serializable;
 import java.util.function.BiFunction;
@@ -22,6 +23,9 @@ public class UpdatePostWithModelFunction implements BiFunction<Post, PostEditMod
                         .name(request.getCategory().getName())
                         .posts(request.getCategory().getPosts())
                         .positionInHierarchy(request.getCategory().getPositionInHierarchy())
+//                        .user(User.builder()
+//                                .id(request.getUser().getId())
+//                                .build())
                         .build()
                 ).build();
     }

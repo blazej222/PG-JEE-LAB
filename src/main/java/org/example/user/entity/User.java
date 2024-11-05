@@ -31,7 +31,7 @@ public class User implements Serializable{
     private UUID id;
     private String name;
     private LocalDate birthday;
-    private UserRoles role;
+    private String role;
 
     @ToString.Exclude
     private String password;

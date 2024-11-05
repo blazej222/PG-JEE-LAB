@@ -46,9 +46,9 @@ public class PostEdit implements Serializable {
     }
 
     public void init() throws IOException{
-        Optional<Post> post = postService.find(id);
+        Optional<Post> post = postService.findForCallerPrincipal(id);
         if(post.isPresent()){
-            this.post = factory.postToEditModel().apply(post.get());
+            //this.post = factory.postToEditModel().apply(post.get());
             this.categories = categoryService.findAll().stream().map(factory.categoryToModel()).toList();
         }
         else{

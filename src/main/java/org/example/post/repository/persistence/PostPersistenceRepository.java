@@ -3,6 +3,7 @@ package org.example.post.repository.persistence;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
@@ -40,6 +41,18 @@ public class PostPersistenceRepository implements PostRepository {
     @Override
     public Optional<Post> find(UUID id) {
         return Optional.ofNullable(em.find(Post.class, id));
+    }
+
+    @Override
+    public Optional<Post> findByIdAndUser(UUID id, User user) {
+        try{
+            return Optional.of(em.createQuery("select p from Post p where p.id = :id and p.user = :user",Post.class)
+                    .setParameter("user", user)
+                    .setParameter("id", id)
+                    .getSingleResult());
+        }catch (NoResultException e){
+            return Optional.empty();
+        }
     }
 
     @Override

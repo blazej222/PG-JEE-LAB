@@ -28,6 +28,6 @@ public class PutUserRequest {
     private String name;
     private String password;
     private LocalDate birthday;
-    private UserRoles role;
+    private String role;
     private List<Post> posts;
 }

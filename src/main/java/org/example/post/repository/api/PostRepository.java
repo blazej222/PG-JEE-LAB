@@ -15,4 +15,6 @@ public interface PostRepository extends Repository<Post, UUID> {
 
     List<Post> findAllByCategory(Category category);
 
+    Optional<Post> findByIdAndUser(UUID id, User user);
+
 }

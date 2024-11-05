@@ -1,17 +1,186 @@
-#Get all posts
+#Get all posts. No credentials
+//@no-cookie-jar
 GET http://localhost:9080/simple-rpg/api/posts
 
 ###
-#Get particular post
-GET http://localhost:9080/simple-rpg/api/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
+#Get all posts. Wrong credentials
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/posts
+Authorization: Basic a2V2aW46d3JvbmdwYXNzd29yZA==
 
 ###
-#Get all category posts
-GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts
+#Get all posts for user kevin.
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/posts
+Authorization: Basic S2V2aW46MTIz
 
 ###
-#Create new post
+#Get all posts for user admin.
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/posts
+Authorization: Basic YWRtaW46MTIz
+
+###
+#Get all categories for user kevin
+GET http://localhost:9080/simple-rpg/api/categories
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Get single post for user kevin (that he has access to)
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/525d3e7b-bb1f-4c13-bf17-926d1a12e4c0
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Get single post for user kevin (that he has no access to)
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Get the same post for admin
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic YWRtaW46MTIz
+
+
+
+
+
+###
+#Get all categories as kevin
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Get all categories as admin
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/
+Authorization: Basic YWRtaW46MTIz
+
+###
+#Create category as kevin (forbidden)
+//@no-cookie-jar
+PUT http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic S2V2aW46MTIz
+Content-Type: application/json
+
+{
+  "name": "Category new",
+  "positionInHierarchy": 999
+}
+
+###
+#Create category as admin
+//@no-cookie-jar
+PUT http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic YWRtaW46MTIz
+Content-Type: application/json
+
+{
+  "name": "Category new",
+  "positionInHierarchy": 999
+}
+
+###
+#Edit category as kevin (unauthorized)
+//@no-cookie-jar
+PATCH http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic S2V2aW46MTIz
+Content-Type: application/json
+
+{
+  "name": "Category new",
+  "positionInHierarchy": 111
+}
+
+###
+#Edit category as admin
+//@no-cookie-jar
+PATCH http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic YWRtaW46MTIz
+Content-Type: application/json
+
+{
+  "name": "Category new",
+  "positionInHierarchy": 111
+}
+
+###
+#Delete category as kevin
+//@no-cookie-jar
+DELETE http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Delete category as admin
+//@no-cookie-jar
+DELETE http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
+Authorization: Basic YWRtaW46MTIz
+
+
+
+###
+#Edit post as kevin (no permissions)
+//@no-cookie-jar
+PATCH http://localhost:9080/simple-rpg/api/categories/d0624669-090e-40ce-a725-85d28697c2e2/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic S2V2aW46MTIz
+Content-Type: application/json
+
+{
+  "content": "Zereni",
+  "amountOfLikes": 321
+}
+
+###
+#Edit post as admin
+//@no-cookie-jar
+PATCH http://localhost:9080/simple-rpg/api/categories/d0624669-090e-40ce-a725-85d28697c2e2/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic YWRtaW46MTIz
+Content-Type: application/json
+
+{
+  "content": "Zereni",
+  "amountOfLikes": 321
+}
+
+###
+#Delete post as kevin (unauthorized)
+//@no-cookie-jar
+DELETE http://localhost:9080/simple-rpg/api/categories/d0624669-090e-40ce-a725-85d28697c2e2/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic S2V2aW46MTIz
+
+###
+#Delete post as admin
+//@no-cookie-jar
+DELETE http://localhost:9080/simple-rpg/api/categories/d0624669-090e-40ce-a725-85d28697c2e2/posts/ff327e8a-77c0-4f9b-90a2-89e16895d1e1
+Authorization: Basic YWRtaW46MTIz
+
+###
+#Edit post as kevin
+//@no-cookie-jar
+PATCH http://localhost:9080/simple-rpg/api/categories/d0624669-090e-40ce-a725-85d28697c2e2/posts/cc0b0577-bb6f-45b7-81d6-3db88e6ac19f
+Authorization: Basic S2V2aW46MTIz
+Content-Type: application/json
+
+{
+  "content": "Uhlbrecht",
+  "amountOfLikes": 321
+}
+
+###
+#Get single post for user kevin edited
+//@no-cookie-jar
+GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/cc0b0577-bb6f-45b7-81d6-3db88e6ac19f
+Authorization: Basic S2V2aW46MTIz
+
+
+###
+#Create post for user kevin
+//@no-cookie-jar
 PUT http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+Authorization: Basic S2V2aW46MTIz
 Content-Type: application/json
 
 {
@@ -21,85 +190,17 @@ Content-Type: application/json
 
 ###
 #Get newly created post
+//@no-cookie-jar
 GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
+Authorization: Basic S2V2aW46MTIz
 
 
-###
-#Patch newly created post
-PATCH http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
-Content-Type: application/json
 
-{
-  "content": "Testcontent1",
-  "amountOfLikes": 321
-}
-
-###
-#Delete newly created post
-DELETE http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76/posts/a2883520-bf7b-4ae1-b8a5-5b70a1b90e71
 
 
 ###
-#Get all categories
-GET http://localhost:9080/simple-rpg/api/categories
-
-###
-#Get particular category
-GET http://localhost:9080/simple-rpg/api/categories/f5875513-bf7b-4ae1-b8a5-5b70a1b90e76
-
-###
-#Create new category
-PUT http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
-Content-Type: application/json
-
-{
-  "name": "Category new",
-  "positionInHierarchy": 999
-}
-
-###
-#Get new category
-GET http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
-
-###
-#Edit new category
-PATCH http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
-Content-Type: application/json
-
-{
-  "name": "Category new",
-  "positionInHierarchy": 111
-}
-
-###
-#Get new category
-GET http://localhost:9080/simple-rpg/api/categories/f2275513-bf7b-4ae1-b8a5-5b70a1b80e36
-
-###
-#Delete existing category
-DELETE http://localhost:9080/simple-rpg/api/categories/5d1da2ae-6a14-4b6d-8b4f-d117867118d4
-
-###
-# Get all users
-
-GET http://localhost:9080/simple-rpg/api/users
-
-###
-
-# Get single user
-
-GET http://localhost:9080/simple-rpg/api/users/81e1c2a9-7f57-439b-b53d-6db88b071e4e
-
-###
-
-# Get single user. Not existing.
-
-GET http://localhost:9080/simple-rpg/api/users/82e1c2a9-7f57-439b-b53d-6db88b071e4e
-
-###
-#Create new user
-
-PUT http://localhost:9080/simple-rpg/api/users/1231c2a9-7f57-439b-b53d-6db88b071f8f
+#Register new user
+PUT http://localhost:9080/simple-rpg/api/users/a8783520-bf7b-4ae1-b845-5b70a1b90e36
 Content-Type: application/json
 
 {
@@ -107,7 +208,13 @@ Content-Type: application/json
   "password": "pass123"
 }
 
+
+###
+#Get all users
+GET http://localhost:9080/simple-rpg/api/users/
+Authorization: Basic YWRtaW46MTIz
+
 ###
 #Get new user
-
-GET http://localhost:9080/simple-rpg/api/users/1231c2a9-7f57-439b-b53d-6db88b071f8f
+GET http://localhost:9080/simple-rpg/api/users/a8783520-bf7b-4ae1-b845-5b70a1b90e36
+Authorization: Basic YWRtaW46MTIz

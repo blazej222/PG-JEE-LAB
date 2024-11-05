@@ -31,6 +31,7 @@ public class Post implements Serializable {
     private int amountOfLikes;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 

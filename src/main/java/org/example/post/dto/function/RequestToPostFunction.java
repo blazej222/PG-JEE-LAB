@@ -3,6 +3,7 @@ package org.example.post.dto.function;
 import org.example.post.dto.PutPostRequest;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
+import org.example.user.entity.User;
 
 import java.util.UUID;
 import java.util.function.BiFunction;
@@ -19,6 +20,9 @@ public class RequestToPostFunction implements BiFunction<UUID, PutPostRequest, P
                         .id(request.getCategory()
                         )
                         .build())
+                .user(User.builder()
+                        .id(request.getUser()).
+                        build())
                 .build();
     }
 }

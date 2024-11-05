@@ -21,7 +21,7 @@ public class GetUserResponse {
     private UUID id;
     private String name;
     private LocalDate birthday;
-    private UserRoles role;
+    private String role;
 
     @Getter
     @Setter

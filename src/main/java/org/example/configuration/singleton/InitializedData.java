@@ -1,15 +1,19 @@
 package org.example.configuration.singleton;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RunAs;
 import jakarta.ejb.*;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Initialized;
 import jakarta.enterprise.context.control.RequestContextController;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.servlet.ServletContextListener;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.java.Log;
 import org.example.category.entity.Category;
 import org.example.post.entity.Post;
 import org.example.category.service.CategoryService;
@@ -31,6 +35,10 @@ import java.util.UUID;
 @Startup
 @TransactionAttribute(value = TransactionAttributeType.NOT_SUPPORTED)
 @NoArgsConstructor
+@DependsOn("InitializeAdminService")
+@DeclareRoles({UserRoles.ADMIN, UserRoles.USER})
+@RunAs(UserRoles.ADMIN)
+@Log
 public class InitializedData implements ServletContextListener {
 
     /**
@@ -42,6 +50,10 @@ public class InitializedData implements ServletContextListener {
      * User service.
      */
     private UserService userService;
+
+    @Inject
+    private SecurityContext securityContext;
+
 
     /**
      * Category service.
@@ -74,6 +86,7 @@ public class InitializedData implements ServletContextListener {
             User admin = User.builder()
                     .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
                     .name("admin")
+                    .password("123")
                     .birthday(LocalDate.of(1990, 10, 21))
                     .role(UserRoles.ADMIN)
                     .build();
@@ -81,6 +94,7 @@ public class InitializedData implements ServletContextListener {
             User kevin = User.builder()
                     .id(UUID.fromString("81e1c2a9-7f57-439b-b53d-6db88b071e4e"))
                     .name("Kevin")
+                    .password("123")
                     .birthday(LocalDate.of(2001, 1, 16))
                     .role(UserRoles.USER)
                     .build();
@@ -88,6 +102,7 @@ public class InitializedData implements ServletContextListener {
             User alice = User.builder()
                     .id(UUID.fromString("ed6cfb2a-cad7-47dd-9b56-9d1e3c7a4197"))
                     .name("Alice")
+                    .password("123")
                     .birthday(LocalDate.of(2002, 3, 19))
                     .role(UserRoles.USER)
                     .build();
