@@ -28,10 +28,10 @@
 
                 <h:column>
                     <f:facet name="header">Delete</f:facet>
-                    <h:form>
-                        <h:commandButton styleClass="btn" value="Delete"
-                                         action="#{categoryList.deleteAction(category)}"/>
-                    </h:form>
+                        <h:form rendered="#{categoryList.verify()}">
+                            <h:commandButton styleClass="btn" value="Delete"
+                                             action="#{categoryList.deleteAction(category)}"/>
+                        </h:form>
                 </h:column>
             </h:dataTable>
         </article>

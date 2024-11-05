@@ -24,6 +24,13 @@
         <div class="container">
             <header class="mb-4 mt-4">
                 <h1>Forum</h1>
+                <h:form styleClass="container d-flex  align-items-center justify-content-end"
+                        rendered="#{facesContext.externalContext.userPrincipal != null}">
+                    Logged: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
+                    <h:commandButton styleClass="btn btn-link" value="Logout"
+                                     action="#{userLogout.logoutAction()}"/>
+                </h:form>
+
             </header>
 
             <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -36,6 +43,13 @@
                             <h:link styleClass="nav-link"
                                     outcome="/post/post_list.xhtml">Posts</h:link>
                         </li>
+                        <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('admin')}">
+                            <li class="nav-item">
+                                <h:link styleClass="nav-link"
+                                        outcome="/user/user_list.xhtml">Users</h:link>
+                            </li>
+                        </h:panelGroup>
+
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
                                     outcome="/category/category_list.xhtml">Categories</h:link>

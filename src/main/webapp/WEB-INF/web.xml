@@ -50,6 +50,16 @@
         </auth-constraint>
     </security-constraint>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>category</web-resource-name>
+            <url-pattern>/category/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 
     <security-role>
         <role-name>admin</role-name>
@@ -58,6 +68,7 @@
     <security-role>
         <role-name>user</role-name>
     </security-role>
+
 
 
 </web-app>

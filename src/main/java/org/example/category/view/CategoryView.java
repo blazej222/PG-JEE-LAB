@@ -12,10 +12,12 @@ import org.example.component.ModelFunctionFactory;
 import org.example.category.entity.Category;
 import org.example.category.model.CategoryModel;
 import org.example.category.service.CategoryService;
+import org.example.post.entity.Post;
 import org.example.post.service.PostService;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 

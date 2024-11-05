@@ -4,6 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.example.category.model.function.CategoriesToModelFunction;
 import org.example.category.model.function.CategoryToModelFunction;
 import org.example.post.model.function.*;
+import org.example.user.model.function.UserToModelFunction;
+import org.example.user.model.function.UsersToModelFunction;
 
 @ApplicationScoped
 public class ModelFunctionFactory {
@@ -16,9 +18,9 @@ public class ModelFunctionFactory {
         return new PostsToModelFunction();
     }
 
-//    public PostToEditModelFunction postToEditModel(){
-//        return new PostToEditModelFunction(userToModel());
-//    }
+    public PostToEditModelFunction postToEditModel(){
+        return new PostToEditModelFunction(userToModel());
+    }
 
     public ModelToPostFunction modelToPost(){
         return new ModelToPostFunction();
@@ -36,22 +38,22 @@ public class ModelFunctionFactory {
         return new UpdatePostWithModelFunction();
     }
 
-//    /**
-//     * Returns a function to convert a single {@link User} to {@link UserModel}.
-//     *
-//     * @return UserToModelFunction instance
-//     */
-//    public UserToModelFunction userToModel() {
-//        return new UserToModelFunction();
-//    }
-//
-//    /**
-//     * Returns a function to convert a list {@link Character} to {@link UsersModel}.
-//     *
-//     * @return UserToModelFunction instance
-//     */
-//    public UsersToModelFunction usersToModel() {
-//        return new UsersToModelFunction();
-//    }
+    /**
+     * Returns a function to convert a single {@link User} to {@link UserModel}.
+     *
+     * @return UserToModelFunction instance
+     */
+    public UserToModelFunction userToModel() {
+        return new UserToModelFunction();
+    }
+
+    /**
+     * Returns a function to convert a list {@link Character} to {@link UsersModel}.
+     *
+     * @return UserToModelFunction instance
+     */
+    public UsersToModelFunction usersToModel() {
+        return new UsersToModelFunction();
+    }
 
 }

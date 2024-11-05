@@ -23,10 +23,10 @@ public class UpdatePostWithModelFunction implements BiFunction<Post, PostEditMod
                         .name(request.getCategory().getName())
                         .posts(request.getCategory().getPosts())
                         .positionInHierarchy(request.getCategory().getPositionInHierarchy())
-//                        .user(User.builder()
-//                                .id(request.getUser().getId())
-//                                .build())
-                        .build()
-                ).build();
+                        .build())
+                .user(User.builder()
+                        .id(request.getUser().getId())
+                        .build())
+                .build();
     }
 }

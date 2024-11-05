@@ -15,6 +15,5 @@ public class PostEditModel {
     private String content;
     private int amountOfLikes;
     private CategoryModel category;
-
     private UserModel user;
 }

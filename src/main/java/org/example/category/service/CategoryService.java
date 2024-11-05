@@ -6,6 +6,7 @@ import jakarta.ejb.LocalBean;
 import jakarta.ejb.Stateless;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.security.enterprise.SecurityContext;
 import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import org.example.category.entity.Category;
@@ -29,28 +30,53 @@ public class CategoryService {
         private final CategoryRepository repository;
         private final PostRepository postRepository;
 
+        private final SecurityContext securityContext;
+
         /**
          * @param repository repository for category entity
          */
         @Inject
-        public CategoryService(CategoryRepository repository, PostRepository postRepository) {
+        public CategoryService(CategoryRepository repository, PostRepository postRepository,
+                               @SuppressWarnings("CdiInjectionPointsInspection") SecurityContext securityContext) {
             this.repository = repository;
             this.postRepository = postRepository;
+            this.securityContext = securityContext;
         }
 
+        public boolean verify()
+        {
+            boolean result = securityContext.isCallerInRole(UserRoles.USER);
+            System.out.println(result);
+            return result;
+        }
         /**
          * @param id category's id
          * @return container with category entity
          */
-        @PermitAll
+        @RolesAllowed({UserRoles.ADMIN,UserRoles.USER})
         public Optional<Category> find(UUID id) {
-            return repository.find(id);
+            Optional<Category> result = repository.find(id);
+
+            if (result.isPresent()) {
+                List<Post> posts = result.get().getPosts();
+                String currentUserName = securityContext.getCallerPrincipal().getName();
+                boolean isAdmin = securityContext.isCallerInRole(UserRoles.ADMIN);
+
+                System.out.println(isAdmin);
+
+                // Użycie iteratora, aby bezpiecznie usuwać elementy podczas iteracji
+                posts.removeIf(post -> (!post.getUser().getName().equals(currentUserName)) && isAdmin);
+
+                result.get().setPosts(posts);
+            }
+
+            return result;
         }
 
         /**
          * @return all available categories
          */
-        @PermitAll
+        @RolesAllowed({UserRoles.ADMIN,UserRoles.USER})
         public List<Category> findAll() {
             return repository.findAll();
         }

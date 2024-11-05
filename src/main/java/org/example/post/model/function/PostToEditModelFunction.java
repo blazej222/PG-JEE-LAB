@@ -19,7 +19,7 @@ public class PostToEditModelFunction implements Function<Post, PostEditModel> {
         return PostEditModel.builder()
                 .content(post.getContent())
                 .amountOfLikes(post.getAmountOfLikes())
-                //.user(userToModelFunction.apply(post.getUser()))
+                .user(userToModelFunction.apply(post.getUser()))
                 .build();
     }
 }
