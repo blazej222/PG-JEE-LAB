@@ -58,7 +58,7 @@ public class UserLogin {
      */
     @Getter
     @Setter
-    private String login;
+    private String name;
 
     /**
      * VIew model, password.
@@ -72,7 +72,7 @@ public class UserLogin {
      */
     @SneakyThrows
     public void loginAction() {
-        Credential credential = new UsernamePasswordCredential(login, new Password(password));
+        Credential credential = new UsernamePasswordCredential(name, new Password(password));
         AuthenticationStatus status = securityContext.authenticate(request, extractResponseFromFacesContext(),
                 withParams().credential(credential));
         System.out.println(securityContext.isCallerInRole("admin"));

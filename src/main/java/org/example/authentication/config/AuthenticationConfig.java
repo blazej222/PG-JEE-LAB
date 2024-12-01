@@ -29,18 +29,6 @@ import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
                 errorPage = "/authentication/custom/login_error.xhtml"
         )
 )
-//@FormAuthenticationMechanismDefinition(
-//        loginToContinue = @LoginToContinue(
-//                loginPage = "/authentication/form/login.xhtml",
-//                errorPage = "/authentication/form/login_error.xhtml"
-//        )
-//)
-//@CustomFormAuthenticationMechanismDefinition(
-//        loginToContinue = @LoginToContinue(
-//                loginPage = "/authentication/custom/login.xhtml",
-//                errorPage = "/authentication/custom/login_error.xhtml"
-//        )
-//)
 @DatabaseIdentityStoreDefinition(
         dataSourceLookup = "jdbc/Forum",
         callerQuery = "select password from users where name = ?",

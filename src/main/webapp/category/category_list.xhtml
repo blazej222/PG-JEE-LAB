@@ -30,7 +30,8 @@
                     <f:facet name="header">Delete</f:facet>
                         <h:form rendered="#{categoryList.verify()}">
                             <h:commandButton styleClass="btn" value="Delete"
-                                             action="#{categoryList.deleteAction(category)}"/>
+                                             action="#{categoryList.deleteAction(category)}"
+                                             rendered="#{request.isUserInRole('admin')}"/>
                         </h:form>
                 </h:column>
             </h:dataTable>

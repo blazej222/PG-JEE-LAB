@@ -65,7 +65,7 @@ public class CategoryService {
                 System.out.println(isAdmin);
 
                 // Użycie iteratora, aby bezpiecznie usuwać elementy podczas iteracji
-                posts.removeIf(post -> (!post.getUser().getName().equals(currentUserName)) && isAdmin);
+                posts.removeIf(post -> !post.getUser().getName().equals(currentUserName) && !isAdmin);
 
                 result.get().setPosts(posts);
             }

@@ -10,6 +10,7 @@ import jakarta.enterprise.context.control.RequestContextController;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.security.enterprise.SecurityContext;
+import jakarta.security.enterprise.identitystore.Pbkdf2PasswordHash;
 import jakarta.servlet.ServletContextListener;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
@@ -53,7 +54,6 @@ public class InitializedData implements ServletContextListener {
 
     @Inject
     private SecurityContext securityContext;
-
 
     /**
      * Category service.
