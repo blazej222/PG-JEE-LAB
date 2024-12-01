@@ -26,8 +26,8 @@
                 <h1>Forum</h1>
                 <h:form styleClass="container d-flex  align-items-center justify-content-end"
                         rendered="#{facesContext.externalContext.userPrincipal != null}">
-                    Logged: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
-                    <h:commandButton styleClass="btn btn-link" value="Logout"
+                    #{messages.logged}: <h:outputText value="#{facesContext.externalContext.userPrincipal.name}"/>
+                    <h:commandButton styleClass="btn btn-link" value="#{messages.logout}"
                                      action="#{userLogout.logoutAction()}"/>
                 </h:form>
 
@@ -37,11 +37,11 @@
                 <div class="container-fluid">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <h:link styleClass="nav-link" outcome="/index.xhtml">Home</h:link>
+                            <h:link styleClass="nav-link" outcome="/index.xhtml">#{messages['nav.home']}</h:link>
                         </li>
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
-                                    outcome="/post/post_list.xhtml">Posts</h:link>
+                                    outcome="/post/post_list.xhtml">#{messages['nav.posts']}</h:link>
                         </li>
                         <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('admin')}">
                             <li class="nav-item">
@@ -52,7 +52,7 @@
 
                         <li class="nav-item">
                             <h:link styleClass="nav-link"
-                                    outcome="/category/category_list.xhtml">Categories</h:link>
+                                    outcome="/category/category_list.xhtml">#{messages['nav.categories']}</h:link>
                         </li>
                     </ul>
                 </div>

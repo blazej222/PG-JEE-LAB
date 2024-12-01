@@ -6,6 +6,7 @@
                 template="/WEB-INF/template/main.xhtml">
 
     <ui:define name="content">
+        <f:loadBundle var="msg" basename="org.example.view.all.i18n"/>
         <h:outputStylesheet library="category" name="css/categories_list.css"/><!-- Automatically relocated to head. -->
 
         <article class="text--justified">
@@ -15,13 +16,13 @@
                          styleClass="table align-middle mb-0 bg-white" headerClass="bg-light">
 
                 <h:column>
-                    <f:facet name="header">Name</f:facet>
+                    <f:facet name="header">#{msg.name}</f:facet>
                     <h:outputText value="#{category.name}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">View</f:facet>
-                    <h:link outcome="/category/category_view.xhtml" value="View">
+                    <h:link outcome="/category/category_view.xhtml" value="#{msg.view}">
                         <f:param name="id" value="#{category.id}"/>
                     </h:link>
                 </h:column>
@@ -29,7 +30,7 @@
                 <h:column>
                     <f:facet name="header">Delete</f:facet>
                         <h:form rendered="#{facesContext.externalContext.isUserInRole('admin')}">
-                            <h:commandButton styleClass="btn" value="Delete"
+                            <h:commandButton styleClass="btn" value="#{msg.delete}"
                                              action="#{categoryList.deleteAction(category)}"
                                              rendered="#{facesContext.externalContext.isUserInRole('admin')}"/>
                         </h:form>

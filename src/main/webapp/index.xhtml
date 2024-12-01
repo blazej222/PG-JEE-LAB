@@ -6,12 +6,13 @@
                 template="/WEB-INF/template/main.xhtml">
 
     <ui:define name="content">
+        <f:loadBundle var="msg" basename="org.example.view.authentication.view.i18n.messages"/>
         <article class="">
             <header>
-                <h2>Home</h2>
+                <h2>#{msg.home}</h2>
             </header>
             <section>
-                <p>The Simple RPG home page.</p>
+                <p>#{msg.home_text}</p>
             </section>
         </article>
     </ui:define>
