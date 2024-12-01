@@ -55,6 +55,9 @@ public class InitializedData implements ServletContextListener {
     @Inject
     private SecurityContext securityContext;
 
+    @Inject
+    private Pbkdf2PasswordHash passwordHash;
+
     /**
      * Category service.
      */
@@ -86,7 +89,7 @@ public class InitializedData implements ServletContextListener {
             User admin = User.builder()
                     .id(UUID.fromString("c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"))
                     .name("admin")
-                    .password("123")
+                    .password(passwordHash.generate("123".toCharArray()))
                     .birthday(LocalDate.of(1990, 10, 21))
                     .role(UserRoles.ADMIN)
                     .build();

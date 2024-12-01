@@ -28,10 +28,10 @@
 
                 <h:column>
                     <f:facet name="header">Delete</f:facet>
-                        <h:form rendered="#{categoryList.verify()}">
+                        <h:form rendered="#{facesContext.externalContext.isUserInRole('admin')}">
                             <h:commandButton styleClass="btn" value="Delete"
                                              action="#{categoryList.deleteAction(category)}"
-                                             rendered="#{request.isUserInRole('admin')}"/>
+                                             rendered="#{facesContext.externalContext.isUserInRole('admin')}"/>
                         </h:form>
                 </h:column>
             </h:dataTable>

@@ -61,7 +61,15 @@ public class InitializeAdminService {
                     .role(UserRoles.ADMIN)
                     .build();
 
+            User test = User.builder()
+                            .id(UUID.randomUUID())
+                            .name("test")
+                            .role(UserRoles.ADMIN)
+                            .password(passwordHash.generate("adminadmin".toCharArray()))
+                            .build();
+
             userRepository.create(admin);
+            userRepository.create(test);
         }
     }
 
