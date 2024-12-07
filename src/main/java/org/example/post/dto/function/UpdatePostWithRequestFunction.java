@@ -15,6 +15,9 @@ public class UpdatePostWithRequestFunction implements BiFunction<Post, PatchPost
                 .amountOfLikes(patchPostRequest.getAmountOfLikes())
                 .category(post.getCategory())
                 .user(post.getUser())
+                .version(patchPostRequest.getVersion())
+                .creationDateTime(post.getCreationDateTime())
+                //.editDateTime(post.getEditDateTime())
                 .build();
     }
 }

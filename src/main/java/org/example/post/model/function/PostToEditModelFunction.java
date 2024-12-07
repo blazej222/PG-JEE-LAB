@@ -20,6 +20,7 @@ public class PostToEditModelFunction implements Function<Post, PostEditModel> {
                 .content(post.getContent())
                 .amountOfLikes(post.getAmountOfLikes())
                 .user(userToModelFunction.apply(post.getUser()))
+                .version(post.getVersion())
                 .build();
     }
 }

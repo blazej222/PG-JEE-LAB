@@ -57,4 +57,6 @@ public class GetPostResponse {
     private int amountOfLikes;
     private Category category;
     private User user;
+
+    private Long version;
 }

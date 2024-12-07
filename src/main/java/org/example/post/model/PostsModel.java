@@ -2,6 +2,7 @@ package org.example.post.model;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,7 +26,9 @@ public class PostsModel {
 
         private UUID id;
         private String content;
-
+        private Long version;
+        private LocalDateTime creationDateTime;
+        private LocalDateTime modifiedDateTime;
     }
 
 

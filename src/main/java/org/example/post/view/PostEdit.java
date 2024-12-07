@@ -1,11 +1,14 @@
 package org.example.post.view;
 
 import jakarta.ejb.EJB;
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.TransactionalException;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.component.ModelFunctionFactory;
@@ -41,14 +44,14 @@ public class PostEdit implements Serializable {
     private List<CategoryModel> categories;
 
     @Inject
-    public PostEdit(ModelFunctionFactory factory) {
+    public PostEdit(ModelFunctionFactory factory, FacesContext facesContext) {
         this.factory = factory;
     }
 
     public void init() throws IOException{
         Optional<Post> post = postService.findForCallerPrincipal(id);
         if(post.isPresent()){
-            //this.post = factory.postToEditModel().apply(post.get());
+            this.post = factory.postToEditModel().apply(post.get());
             this.categories = categoryService.findAll().stream().map(factory.categoryToModel()).toList();
         }
         else{
@@ -68,9 +71,19 @@ public class PostEdit implements Serializable {
         this.categoryService = categoryService;
     }
 
-    public String saveAction(){
-        postService.update(factory.updatePost().apply(postService.find(id).orElseThrow(),post));
-        String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
-        return viewId + "?faces-redirect=true&includeViewParams=true";
+    public String saveAction() throws IOException{
+
+        try{
+            postService.update(factory.updatePost().apply(postService.find(id).orElseThrow(),post));
+            String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
+            return viewId + "?faces-redirect=true&includeViewParams=true";
+        }catch (TransactionalException ex)
+        {
+            if(ex.getCause() instanceof OptimisticLockException){
+                init();
+                FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Version collision"));
+            }
+        }
+        return null;
     }
 }

@@ -27,6 +27,8 @@ public class UpdatePostWithModelFunction implements BiFunction<Post, PostEditMod
                 .user(User.builder()
                         .id(request.getUser().getId())
                         .build())
+                .version(request.getVersion())
+                .creationDateTime(post.getCreationDateTime())
                 .build();
     }
 }

@@ -24,4 +24,5 @@ public class PutPostRequest {
     private int amountOfLikes;
     private UUID category;
     private UUID user;
+    private Long version;
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.example.category.entity.Category;
+import org.example.entity.VersionAndCreationDateAuditable;
 import org.example.user.entity.User;
 
 import java.io.Serializable;
@@ -21,10 +22,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString()
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name="posts")
-public class Post implements Serializable {
+public class Post extends VersionAndCreationDateAuditable implements Serializable {
     @Id
     private UUID id;
     private String content;
@@ -39,4 +40,16 @@ public class Post implements Serializable {
     @EqualsAndHashCode.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @Override
+    public void updateCreationDateTime()
+    {
+        super.updateCreationDateTime();
+    }
+
+    @Override
+    public void updateEditDateTime()
+    {
+        super.updateEditDateTime();
+    }
 }

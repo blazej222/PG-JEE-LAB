@@ -23,6 +23,7 @@ public class PostToResponseFunction implements Function<Post, GetPostResponse> {
                         .name(entity.getUser().getName())
                         .build()
                 )
+                .version(entity.getVersion())
                 .build();
     }
 }

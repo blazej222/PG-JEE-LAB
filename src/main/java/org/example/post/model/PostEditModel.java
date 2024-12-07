@@ -16,4 +16,5 @@ public class PostEditModel {
     private int amountOfLikes;
     private CategoryModel category;
     private UserModel user;
+    private Long version;
 }

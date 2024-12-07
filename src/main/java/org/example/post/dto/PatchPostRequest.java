@@ -22,4 +22,5 @@ public class PatchPostRequest {
     private String content;
     private int amountOfLikes;
     private UUID category;
+    private Long version;
 }

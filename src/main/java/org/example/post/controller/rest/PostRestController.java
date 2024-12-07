@@ -6,7 +6,9 @@ import jakarta.ejb.EJBAccessException;
 import jakarta.ejb.EJBException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.OptimisticLockException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.TransactionalException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
@@ -100,6 +102,10 @@ public class PostRestController implements PostController {
             throw new WebApplicationException(Response.Status.CREATED);
         } catch (EJBException ex) {
             throw new BadRequestException(ex);
+        } catch(TransactionalException ex) {
+            if(ex.getCause() instanceof OptimisticLockException){
+                throw new BadRequestException(ex.getCause());
+            }
         }
     }
 
